@@ -35,6 +35,28 @@ body{transition:background .2s,color .2s}
 .v2grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}.v2box{background:var(--bg);padding:18px;border-radius:14px;border:1px solid var(--line)}.v2box strong{font-size:25px;display:block}.v2muted{color:var(--muted);font-size:14px}.v2row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}.v2input{padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;max-width:100%}.v2progress{height:12px;background:var(--line);border-radius:20px;overflow:hidden}.v2progress>div{height:100%;background:var(--accent);transition:width .3s}.v2question{padding:15px;background:var(--bg);border:1px solid var(--line);border-radius:12px;margin:12px 0}.v2question label{display:block;margin:7px 0;cursor:pointer}.v2flip{min-height:155px;display:grid;place-items:center;text-align:center;padding:24px;border-radius:15px;background:var(--accent2);font-size:21px;font-weight:700;cursor:pointer;border:2px dashed var(--accent)}.v2chip{padding:5px 9px;border-radius:99px;background:var(--accent2);color:var(--accent);font-size:12px;font-weight:700}
 body.focus header,body.focus .toolbar,body.focus .stats,body.focus .sidebar,body.focus footer,body.focus .v2tabs,body.focus .formpanel{display:none!important}body.focus main{margin:10px auto}body.focus .layout{display:block}body.focus .content{max-width:850px;margin:auto}body.focus .readerbody{font-size:19px;line-height:1.9}
 @media print{.v2tabs,.v2panel,.v2extras{display:none!important}}
+
+/* V2.1 interface */
+:root{--v2brand:#8b5cf6;--v2font:16px}
+body{font-size:var(--v2font)}
+header{background:linear-gradient(125deg,#10111d,#26203f 65%,var(--v2brand));padding-bottom:74px}
+header .brand{font-size:13px;letter-spacing:.16em}
+main{max-width:1240px}
+.v2tabs{position:relative;z-index:2;gap:8px;padding:9px;background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.v2tabs button{border:0;flex:1 1 auto;white-space:nowrap}
+.v2panel{border-radius:22px}
+.v2box{transition:transform .2s,box-shadow .2s}
+.v2box:hover{box-shadow:var(--shadow)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.v2list .cards{grid-template-columns:1fr}
+.v2list .card{min-height:120px}
+.v2square .v2panel,.v2square .v2box,.v2square .card,.v2square .content,.v2square .sidebar,.v2square button,.v2square .v2tabs{border-radius:4px!important}
+.v2nomotion *, .v2nomotion *::before,.v2nomotion *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+#v2colors button{padding:9px 12px;background:var(--bg);border:1px solid var(--line)}
+#v2settings .v2box h3{margin-top:0}
+@media(max-width:760px){header{padding:23px 16px 60px}main{padding:0 12px}.v2tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.v2tabs button{font-size:12px;padding:10px 4px;white-space:normal}.v2panel{padding:16px}.v2grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v2box{padding:12px}.v2box strong{font-size:20px}}
+@media(max-width:380px){.v2grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -46,11 +68,12 @@ body.focus header,body.focus .toolbar,body.focus .stats,body.focus .sidebar,body
   </div>
 </header>
 <main>
-<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="exams">📅 Contrôles</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button></nav>
-<section id="v2home" class="v2panel on"><h2>👋 Prêt à réviser ?</h2><p class="v2muted">Ta bibliothèque, tes contrôles et tes révisions au même endroit.</p><div class="v2grid"><div class="v2box"><strong id="v2total">0</strong>Fiches disponibles</div><div class="v2box"><strong id="v2done">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2next">—</strong>Prochain contrôle</div><div class="v2box"><strong id="v2score">—</strong>Moyenne aux quiz</div></div><h3>Continuer à réviser</h3><div id="v2recent"></div><button id="v2openlibrary">Voir toutes les fiches →</button></section>
+<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="private">🔐 Mes fiches</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button><button data-v2tab="settings">⚙️ Paramètres</button></nav>
+<section id="v2home" class="v2panel on"><h2>👋 Prêt à réviser ?</h2><p class="v2muted">Tes fiches, tes outils et tes révisions au même endroit.</p><div class="v2grid"><div class="v2box"><strong id="v2total">0</strong>Fiches disponibles</div><div class="v2box"><strong id="v2done">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2next">—</strong>Fiches personnelles</div><div class="v2box"><strong id="v2score">—</strong>Moyenne aux quiz</div></div><h3>Continuer à réviser</h3><div id="v2recent"></div><button id="v2openlibrary">Voir toutes les fiches →</button></section>
 <section id="v2quiz" class="v2panel"><h2>🧠 Quiz interactifs</h2><p class="v2muted">Choisis une fiche, réponds aux questions et vérifie tes connaissances.</p><div class="v2row"><select id="v2quizselect" class="v2input"></select><button id="v2quizstart">Commencer</button></div><div id="v2quizarea"></div></section>
 <section id="v2cards" class="v2panel"><h2>🃏 Flashcards</h2><p class="v2muted">Retourne les cartes et indique si tu connais la réponse.</p><div class="v2row"><select id="v2cardselect" class="v2input"></select><button id="v2cardstart">Réviser</button></div><div id="v2cardarea"></div></section>
-<section id="v2exams" class="v2panel"><h2>📅 Mes contrôles</h2><p class="v2muted">Ajoute tes évaluations et retrouve le temps qu'il te reste pour réviser.</p><form id="v2examform" class="v2row"><input class="v2input" id="v2examname" placeholder="Matière / contrôle" required><input class="v2input" type="date" id="v2examdate" required><input class="v2input" id="v2examtopic" placeholder="Chapitre (facultatif)"><button>Ajouter</button></form><div id="v2examlist"></div></section>
+<section id="v2private" class="v2panel"><h2>🔐 Mes fiches personnelles</h2><p class="v2muted">Pour le moment, ces fiches sont enregistrées <strong>sur cet appareil uniquement</strong>. Ce n'est pas encore un espace privé sécurisé avec compte : n'y mets pas d'informations sensibles.</p><div class="v2row"><button id="v2newprivate">＋ Créer une fiche personnelle</button><button class="secondary" id="v2privatelibrary">Ouvrir la bibliothèque</button></div><div id="v2privatelist"></div></section>
+<section id="v2settings" class="v2panel"><h2>⚙️ Personnaliser mon espace</h2><p class="v2muted">Tes choix sont conservés dans ce navigateur.</p><div class="v2grid"><div class="v2box"><h3>🎨 Couleur principale</h3><div class="v2row" id="v2colors"><button data-color="#8b5cf6" aria-label="Violet">🟣</button><button data-color="#2563eb" aria-label="Bleu">🔵</button><button data-color="#dc2626" aria-label="Rouge">🔴</button><button data-color="#059669" aria-label="Vert">🟢</button><button data-color="#ea580c" aria-label="Orange">🟠</button></div><label>Ma couleur <input id="v2color" type="color" value="#8b5cf6"></label></div><div class="v2box"><h3>🖥️ Affichage</h3><label>Thème <select id="v2theme" class="v2input"><option value="dark">Sombre</option><option value="light">Clair</option></select></label><p><label>Taille du texte <select id="v2font" class="v2input"><option value="14">Compact</option><option value="16">Normal</option><option value="18">Grand</option><option value="20">Très grand</option></select></label></p><label><input id="v2motion" type="checkbox"> Réduire les animations</label></div><div class="v2box"><h3>📚 Présentation</h3><label>Fiches <select id="v2view" class="v2input"><option value="grid">Grille</option><option value="list">Liste</option></select></label><p><label>Angles <select id="v2round" class="v2input"><option value="rounded">Arrondis</option><option value="square">Carrés</option></select></label></p><button class="secondary" id="v2resetsettings">Réinitialiser l'apparence</button></div></div><p class="v2muted">Les comptes publics et les fiches privées synchronisées seront ajoutés lors de la phase dédiée à l'authentification.</p></section>
 <section id="v2stats" class="v2panel"><h2>📊 Ma progression</h2><div class="v2grid"><div class="v2box"><strong id="v2statread">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2statquiz">0</strong>Quiz réalisés</div><div class="v2box"><strong id="v2statavg">—</strong>Score moyen</div><div class="v2box"><strong id="v2stattime">0 min</strong>Temps de révision estimé</div></div><h3>Progression</h3><div class="v2progress"><div id="v2bar" style="width:0"></div></div><p id="v2progresslabel" class="v2muted"></p><p class="v2muted">Données enregistrées dans ce navigateur. Utilise la sauvegarde pour les transférer.</p><button id="v2exportstats" class="secondary">↓ Exporter ma progression</button><label style="display:inline-block;margin-left:8px;cursor:pointer">↑ Importer ma progression <input type="file" id="v2importstats" accept="application/json" style="max-width:180px"></label></section>
   <div class="toolbar" id="v2librarytoolbar">
     <input id="search" class="search" type="search" placeholder="🔎  Rechercher une fiche, une date, une notion…" aria-label="Rechercher une fiche">
@@ -250,17 +273,19 @@ function v2filterFavorites(){
 }
 function v2refresh(){
  const done=v2state.read.filter(id=>fiches.some(f=>f.id===id)).length;
- const exams=[...v2state.exams].filter(e=>e.date>=new Date().toISOString().slice(0,10)).sort((a,b)=>a.date.localeCompare(b.date));
+ const privateCount=fiches.filter(f=>!initial.some(i=>i.id===f.id)).length;
  const avg=v2state.quizResults.length?Math.round(v2state.quizResults.reduce((s,x)=>s+x.score,0)/v2state.quizResults.length):null;
- v2id('v2total').textContent=fiches.length;v2id('v2done').textContent=done;v2id('v2next').textContent=exams.length?Math.ceil((new Date(exams[0].date+'T12:00:00')-new Date())/86400000)+' j':'—';
+ v2id('v2total').textContent=fiches.length;v2id('v2done').textContent=done;v2id('v2next').textContent=privateCount;
  v2id('v2score').textContent=avg===null?'—':avg+'%';
  v2id('v2statread').textContent=done;v2id('v2statquiz').textContent=v2state.quizResults.length;v2id('v2statavg').textContent=avg===null?'—':avg+'%';v2id('v2stattime').textContent=Math.floor(v2state.seconds/60)+' min';
  v2id('v2bar').style.width=(fiches.length?Math.round(done/fiches.length*100):0)+'%';v2id('v2progresslabel').textContent=done+' / '+fiches.length+' fiches étudiées';
  v2id('v2recent').innerHTML=fiches.slice(0,4).map(f=>'<button class="secondary" style="margin:4px" data-v2read="'+v2escape(f.id)+'">'+v2escape(f.subject)+' · '+v2escape(f.title)+'</button>').join('');
  document.querySelectorAll('[data-v2read]').forEach(b=>b.onclick=()=>{v2show('library');openReader(b.dataset.v2read)});
  for(const id of ['v2quizselect','v2cardselect']){const sel=v2id(id),before=sel.value;sel.innerHTML=fiches.map(f=>'<option value="'+v2escape(f.id)+'">'+v2escape(f.subject)+' · '+v2escape(f.title)+'</option>').join('');if(fiches.some(f=>f.id===before))sel.value=before}
- v2id('v2examlist').innerHTML=[...v2state.exams].sort((a,b)=>a.date.localeCompare(b.date)).map(e=>'<div class="v2box v2row"><strong style="font-size:16px">'+v2escape(e.name)+'</strong><span>'+v2escape(e.date)+' · '+v2escape(e.topic)+'</span><button class="secondary" data-v2examdel="'+v2escape(e.id)+'">Supprimer</button></div>').join('')||'<p class="v2muted">Aucun contrôle enregistré.</p>';
- document.querySelectorAll('[data-v2examdel]').forEach(b=>b.onclick=()=>{v2state.exams=v2state.exams.filter(e=>e.id!==b.dataset.v2examdel);v2save();v2refresh()});
+
+ v2id('v2privatelist').innerHTML=fiches.filter(f=>!initial.some(i=>i.id===f.id)).map(f=>'<div class="v2box v2row"><strong style="font-size:16px">'+v2escape(f.title)+'</strong><span class="v2muted">'+v2escape(f.subject)+'</span><button class="secondary" data-v2private="'+v2escape(f.id)+'">Ouvrir</button></div>').join('')||'<p class="v2muted">Aucune fiche personnelle sur cet appareil.</p>';
+ document.querySelectorAll('[data-v2private]').forEach(b=>b.onclick=()=>{v2show('library');openReader(b.dataset.v2private)});
+
  if(currentId){v2id('v2favorite').textContent=v2state.favorites.includes(currentId)?'★ Favori':'☆ Favori';v2id('v2markread').textContent=v2state.read.includes(currentId)?'✓ Étudiée':'Marquer étudiée'}
 }
 const v2OriginalOpenReader=openReader;
@@ -270,7 +295,6 @@ v2id('v2markread').onclick=()=>{if(!currentId)return;v2state.read=v2state.read.i
 v2id('v2focus').onclick=()=>{document.body.classList.toggle('focus');v2id('v2focus').textContent=document.body.classList.contains('focus')?'Quitter concentration':'⛶ Concentration'};
 v2id('backBtn').addEventListener('click',()=>document.body.classList.remove('focus'));
 setInterval(()=>{if(!document.hidden && (v2tab==='quiz'||v2tab==='cards'||document.getElementById('reader').classList.contains('open'))){v2state.seconds+=30;v2save()}},30000);
-v2id('v2examform').onsubmit=e=>{e.preventDefault();v2state.exams.push({id:String(Date.now()),name:v2id('v2examname').value.trim(),date:v2id('v2examdate').value,topic:v2id('v2examtopic').value.trim()});v2save();e.target.reset();v2refresh()};
 function v2Questions(f){
  const raw=f.body||'';
  const lines=raw.split('\n').map(x=>x.trim()).filter(x=>x.length>12&&x.length<150);
@@ -302,6 +326,36 @@ v2id('v2exportstats').onclick=()=>{const a=document.createElement('a');const url
 v2id('v2importstats').onchange=async e=>{try{const x=JSON.parse(await e.target.files[0].text());if(!x||!Array.isArray(x.favorites)||!Array.isArray(x.read)||!Array.isArray(x.exams))throw Error();if(confirm('Remplacer ta progression actuelle par cette sauvegarde ?')){v2state={...v2default(),...x};v2save();v2refresh()}}catch(e){alert('Sauvegarde invalide')}};
 const v2OriginalRender=render;
 render=function(){v2OriginalRender();if(v2tab==='favorites')v2filterFavorites()};
+
+/* V2.1 — préférences locales et espace de fiches personnelles */
+const V2PREFKEY='fiches-v2-preferences';
+const v2prefsDefault=()=>({color:'#8b5cf6',font:'16',motion:false,view:'grid',round:'rounded'});
+let v2prefs;try{v2prefs={...v2prefsDefault(),...JSON.parse(localStorage.getItem(V2PREFKEY)||'{}')}}catch(e){v2prefs=v2prefsDefault()}
+function v2applyPrefs(){
+ const c=/^#[0-9a-fA-F]{6}$/.test(v2prefs.color)?v2prefs.color:'#8b5cf6';
+ document.documentElement.style.setProperty('--accent',c);
+ document.documentElement.style.setProperty('--accent2',c+'20');
+ document.documentElement.style.setProperty('--v2brand',c);
+ document.documentElement.style.setProperty('--v2font',v2prefs.font+'px');
+ document.documentElement.classList.toggle('v2nomotion',!!v2prefs.motion);
+ document.documentElement.classList.toggle('v2list',v2prefs.view==='list');
+ document.documentElement.classList.toggle('v2square',v2prefs.round==='square');
+ v2id('v2color').value=c;v2id('v2font').value=v2prefs.font;v2id('v2motion').checked=!!v2prefs.motion;v2id('v2view').value=v2prefs.view;v2id('v2round').value=v2prefs.round;
+ v2id('v2theme').value=document.documentElement.dataset.theme==='dark'?'dark':'light';
+}
+function v2setPref(key,value){v2prefs[key]=value;localStorage.setItem(V2PREFKEY,JSON.stringify(v2prefs));v2applyPrefs()}
+document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>v2setPref('color',b.dataset.color));
+v2id('v2color').oninput=e=>v2setPref('color',e.target.value);
+v2id('v2font').onchange=e=>v2setPref('font',e.target.value);
+v2id('v2motion').onchange=e=>v2setPref('motion',e.target.checked);
+v2id('v2view').onchange=e=>v2setPref('view',e.target.value);
+v2id('v2round').onchange=e=>v2setPref('round',e.target.value);
+v2id('v2theme').onchange=e=>{localStorage.setItem(THEME_KEY,e.target.value);applyTheme(e.target.value);v2applyPrefs()};
+v2id('v2resetsettings').onclick=()=>{v2prefs=v2prefsDefault();localStorage.setItem(V2PREFKEY,JSON.stringify(v2prefs));v2applyPrefs()};
+v2id('v2newprivate').onclick=()=>{v2show('library');openNew()};
+v2id('v2privatelibrary').onclick=()=>v2show('library');
+v2applyPrefs();
+
 v2show('home');
 
 </script>
