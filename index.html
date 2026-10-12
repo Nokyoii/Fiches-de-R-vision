@@ -26,6 +26,15 @@ button{border:0;border-radius:12px;padding:12px 16px;background:var(--accent);co
 .notice{font-size:12px;color:var(--muted);margin-top:18px;padding:12px;border-top:1px solid var(--line)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 30px}
 @media(max-width:760px){.layout{grid-template-columns:1fr}.sidebar{padding:12px}.cats{display:flex;flex-wrap:wrap}.cat{width:auto;gap:10px}.stats{gap:8px}.stat{padding:12px}.toolbar{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.content{padding:16px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.content-head{flex-direction:column}}
+
+/* V2 enhancements */
+:root{--v2green:#10b981}
+body{transition:background .2s,color .2s}
+.v2tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.v2tabs button{background:var(--panel);border:1px solid var(--line);color:var(--text);padding:10px 13px}.v2tabs button.on{background:var(--accent);color:#fff}
+.v2panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:var(--shadow)}.v2panel.on{display:block}
+.v2grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}.v2box{background:var(--bg);padding:18px;border-radius:14px;border:1px solid var(--line)}.v2box strong{font-size:25px;display:block}.v2muted{color:var(--muted);font-size:14px}.v2row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}.v2input{padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;max-width:100%}.v2progress{height:12px;background:var(--line);border-radius:20px;overflow:hidden}.v2progress>div{height:100%;background:var(--accent);transition:width .3s}.v2question{padding:15px;background:var(--bg);border:1px solid var(--line);border-radius:12px;margin:12px 0}.v2question label{display:block;margin:7px 0;cursor:pointer}.v2flip{min-height:155px;display:grid;place-items:center;text-align:center;padding:24px;border-radius:15px;background:var(--accent2);font-size:21px;font-weight:700;cursor:pointer;border:2px dashed var(--accent)}.v2chip{padding:5px 9px;border-radius:99px;background:var(--accent2);color:var(--accent);font-size:12px;font-weight:700}
+body.focus header,body.focus .toolbar,body.focus .stats,body.focus .sidebar,body.focus footer,body.focus .v2tabs,body.focus .formpanel{display:none!important}body.focus main{margin:10px auto}body.focus .layout{display:block}body.focus .content{max-width:850px;margin:auto}body.focus .readerbody{font-size:19px;line-height:1.9}
+@media print{.v2tabs,.v2panel,.v2extras{display:none!important}}
 </style>
 </head>
 <body>
@@ -37,11 +46,17 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 30px}
   </div>
 </header>
 <main>
-  <div class="toolbar">
+<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="exams">📅 Contrôles</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button></nav>
+<section id="v2home" class="v2panel on"><h2>👋 Prêt à réviser ?</h2><p class="v2muted">Ta bibliothèque, tes contrôles et tes révisions au même endroit.</p><div class="v2grid"><div class="v2box"><strong id="v2total">0</strong>Fiches disponibles</div><div class="v2box"><strong id="v2done">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2next">—</strong>Prochain contrôle</div><div class="v2box"><strong id="v2score">—</strong>Moyenne aux quiz</div></div><h3>Continuer à réviser</h3><div id="v2recent"></div><button id="v2openlibrary">Voir toutes les fiches →</button></section>
+<section id="v2quiz" class="v2panel"><h2>🧠 Quiz interactifs</h2><p class="v2muted">Choisis une fiche, réponds aux questions et vérifie tes connaissances.</p><div class="v2row"><select id="v2quizselect" class="v2input"></select><button id="v2quizstart">Commencer</button></div><div id="v2quizarea"></div></section>
+<section id="v2cards" class="v2panel"><h2>🃏 Flashcards</h2><p class="v2muted">Retourne les cartes et indique si tu connais la réponse.</p><div class="v2row"><select id="v2cardselect" class="v2input"></select><button id="v2cardstart">Réviser</button></div><div id="v2cardarea"></div></section>
+<section id="v2exams" class="v2panel"><h2>📅 Mes contrôles</h2><p class="v2muted">Ajoute tes évaluations et retrouve le temps qu'il te reste pour réviser.</p><form id="v2examform" class="v2row"><input class="v2input" id="v2examname" placeholder="Matière / contrôle" required><input class="v2input" type="date" id="v2examdate" required><input class="v2input" id="v2examtopic" placeholder="Chapitre (facultatif)"><button>Ajouter</button></form><div id="v2examlist"></div></section>
+<section id="v2stats" class="v2panel"><h2>📊 Ma progression</h2><div class="v2grid"><div class="v2box"><strong id="v2statread">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2statquiz">0</strong>Quiz réalisés</div><div class="v2box"><strong id="v2statavg">—</strong>Score moyen</div><div class="v2box"><strong id="v2stattime">0 min</strong>Temps de révision estimé</div></div><h3>Progression</h3><div class="v2progress"><div id="v2bar" style="width:0"></div></div><p id="v2progresslabel" class="v2muted"></p><p class="v2muted">Données enregistrées dans ce navigateur. Utilise la sauvegarde pour les transférer.</p><button id="v2exportstats" class="secondary">↓ Exporter ma progression</button><label style="display:inline-block;margin-left:8px;cursor:pointer">↑ Importer ma progression <input type="file" id="v2importstats" accept="application/json" style="max-width:180px"></label></section>
+  <div class="toolbar" id="v2librarytoolbar">
     <input id="search" class="search" type="search" placeholder="🔎  Rechercher une fiche, une date, une notion…" aria-label="Rechercher une fiche">
     <button id="newBtn">＋ Ajouter une fiche</button>
   </div>
-  <div class="stats">
+  <div class="stats" id="v2librarystats">
     <div class="stat"><strong id="totalStat">1</strong><span>Fiches enregistrées</span></div>
     <div class="stat"><strong id="subjectStat">1</strong><span>Matières</span></div>
     <div class="stat"><strong id="visibleStat">1</strong><span>Résultats affichés</span></div>
@@ -60,7 +75,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 30px}
       <div class="formactions"><button type="button" class="secondary" id="cancelBtn">Annuler</button><button type="submit">Enregistrer la fiche</button></div>
     </form>
   </section>
-  <div class="layout">
+  <div class="layout" id="v2librarylayout">
     <aside class="sidebar">
       <div class="section-label">Catégories</div>
       <div id="categories" class="cats"></div>
@@ -75,7 +90,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 30px}
         <div id="cards" class="cards"></div>
       </div>
       <div id="reader" class="reader">
-        <div class="readerbar"><button class="secondary" id="backBtn">← Retour aux fiches</button><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="editBtn">Modifier</button><button class="secondary" id="printBtn">Imprimer</button></div></div>
+        <div class="readerbar"><button class="secondary" id="backBtn">← Retour aux fiches</button><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="editBtn">Modifier</button><button class="secondary" id="printBtn">PDF / Imprimer</button><button class="secondary" id="v2favorite">☆ Favori</button><button class="secondary" id="v2focus">⛶ Concentration</button><button class="secondary" id="v2markread">✓ Étudiée</button></div></div>
         <span id="readTag" class="tag"></span><h2 id="readTitle" style="font-size:28px;line-height:1.2;letter-spacing:-.03em"></h2><p id="readMeta" class="sub"></p><p id="readSummary" class="sub"></p><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><div id="readBody" class="readerbody"></div>
       </div>
     </section>
@@ -209,6 +224,86 @@ document.getElementById('importFile').addEventListener('change',async e=>{const 
 // Ensure starter fiche is persisted on first visit.
 if(!localStorage.getItem(KEY))save();
 render();
+
+/* V2 — données personnelles uniquement dans ce navigateur */
+const V2KEY='fiches-v2-progress';
+const v2default=()=>({favorites:[],read:[],visits:[],quizResults:[],exams:[],cards:{},seconds:0});
+let v2state;try{v2state={...v2default(),...JSON.parse(localStorage.getItem(V2KEY)||'{}')}}catch(e){v2state=v2default()}
+let v2tab='home',v2cardDeck=[],v2cardIndex=0,v2cardFlipped=false,v2activeQuiz=[];
+function v2save(){localStorage.setItem(V2KEY,JSON.stringify(v2state))}
+function v2id(id){return document.getElementById(id)}
+function v2escape(x){return esc(String(x??''))}
+function v2show(tab){
+ v2tab=tab;
+ document.querySelectorAll('[data-v2tab]').forEach(b=>b.classList.toggle('on',b.dataset.v2tab===tab));
+ document.querySelectorAll('.v2panel').forEach(p=>p.classList.toggle('on',p.id==='v2'+tab));
+ const lib=tab==='library'||tab==='favorites';
+ for(const id of ['v2librarytoolbar','v2librarystats','v2librarylayout'])v2id(id).style.display=lib?'':'none';
+ if(lib){activeCategory='Toutes';v2id('search').value='';closeReader();render();if(tab==='favorites')v2filterFavorites()}
+ v2refresh();window.scrollTo({top:0,behavior:'smooth'})
+}
+document.querySelectorAll('[data-v2tab]').forEach(b=>b.onclick=()=>v2show(b.dataset.v2tab));
+v2id('v2openlibrary').onclick=()=>v2show('library');
+function v2filterFavorites(){
+ document.querySelectorAll('#cards .card').forEach(c=>{const id=c.querySelector('[data-open]')?.dataset.open;c.style.display=v2state.favorites.includes(id)?'':'none'});
+ v2id('listTitle').textContent='⭐ Mes favoris';
+}
+function v2refresh(){
+ const done=v2state.read.filter(id=>fiches.some(f=>f.id===id)).length;
+ const exams=[...v2state.exams].filter(e=>e.date>=new Date().toISOString().slice(0,10)).sort((a,b)=>a.date.localeCompare(b.date));
+ const avg=v2state.quizResults.length?Math.round(v2state.quizResults.reduce((s,x)=>s+x.score,0)/v2state.quizResults.length):null;
+ v2id('v2total').textContent=fiches.length;v2id('v2done').textContent=done;v2id('v2next').textContent=exams.length?Math.ceil((new Date(exams[0].date+'T12:00:00')-new Date())/86400000)+' j':'—';
+ v2id('v2score').textContent=avg===null?'—':avg+'%';
+ v2id('v2statread').textContent=done;v2id('v2statquiz').textContent=v2state.quizResults.length;v2id('v2statavg').textContent=avg===null?'—':avg+'%';v2id('v2stattime').textContent=Math.floor(v2state.seconds/60)+' min';
+ v2id('v2bar').style.width=(fiches.length?Math.round(done/fiches.length*100):0)+'%';v2id('v2progresslabel').textContent=done+' / '+fiches.length+' fiches étudiées';
+ v2id('v2recent').innerHTML=fiches.slice(0,4).map(f=>'<button class="secondary" style="margin:4px" data-v2read="'+v2escape(f.id)+'">'+v2escape(f.subject)+' · '+v2escape(f.title)+'</button>').join('');
+ document.querySelectorAll('[data-v2read]').forEach(b=>b.onclick=()=>{v2show('library');openReader(b.dataset.v2read)});
+ for(const id of ['v2quizselect','v2cardselect']){const sel=v2id(id),before=sel.value;sel.innerHTML=fiches.map(f=>'<option value="'+v2escape(f.id)+'">'+v2escape(f.subject)+' · '+v2escape(f.title)+'</option>').join('');if(fiches.some(f=>f.id===before))sel.value=before}
+ v2id('v2examlist').innerHTML=[...v2state.exams].sort((a,b)=>a.date.localeCompare(b.date)).map(e=>'<div class="v2box v2row"><strong style="font-size:16px">'+v2escape(e.name)+'</strong><span>'+v2escape(e.date)+' · '+v2escape(e.topic)+'</span><button class="secondary" data-v2examdel="'+v2escape(e.id)+'">Supprimer</button></div>').join('')||'<p class="v2muted">Aucun contrôle enregistré.</p>';
+ document.querySelectorAll('[data-v2examdel]').forEach(b=>b.onclick=()=>{v2state.exams=v2state.exams.filter(e=>e.id!==b.dataset.v2examdel);v2save();v2refresh()});
+ if(currentId){v2id('v2favorite').textContent=v2state.favorites.includes(currentId)?'★ Favori':'☆ Favori';v2id('v2markread').textContent=v2state.read.includes(currentId)?'✓ Étudiée':'Marquer étudiée'}
+}
+const v2OriginalOpenReader=openReader;
+openReader=function(id){v2OriginalOpenReader(id);v2state.visits.push({id,date:new Date().toISOString()});v2save();v2refresh()};
+v2id('v2favorite').onclick=()=>{if(!currentId)return;v2state.favorites=v2state.favorites.includes(currentId)?v2state.favorites.filter(x=>x!==currentId):[...v2state.favorites,currentId];v2save();v2refresh()};
+v2id('v2markread').onclick=()=>{if(!currentId)return;v2state.read=v2state.read.includes(currentId)?v2state.read.filter(x=>x!==currentId):[...v2state.read,currentId];v2save();v2refresh()};
+v2id('v2focus').onclick=()=>{document.body.classList.toggle('focus');v2id('v2focus').textContent=document.body.classList.contains('focus')?'Quitter concentration':'⛶ Concentration'};
+v2id('backBtn').addEventListener('click',()=>document.body.classList.remove('focus'));
+setInterval(()=>{if(!document.hidden && (v2tab==='quiz'||v2tab==='cards'||document.getElementById('reader').classList.contains('open'))){v2state.seconds+=30;v2save()}},30000);
+v2id('v2examform').onsubmit=e=>{e.preventDefault();v2state.exams.push({id:String(Date.now()),name:v2id('v2examname').value.trim(),date:v2id('v2examdate').value,topic:v2id('v2examtopic').value.trim()});v2save();e.target.reset();v2refresh()};
+function v2Questions(f){
+ const raw=f.body||'';
+ const lines=raw.split('\n').map(x=>x.trim()).filter(x=>x.length>12&&x.length<150);
+ const terms=[];
+ for(const line of lines){const m=line.match(/^[-•]?\s*([^:]{4,65})\s*:\s*(.{8,160})$/);if(m && !/^(exemple|correction|solution|dates|définition|formule|méthode|objectif)$/i.test(m[1]))terms.push({q:'Que signifie « '+m[1].replace(/^[•-]\s*/,'')+' » ?',a:m[2]})}
+ if(!terms.length){
+ const sentences=raw.split(/[.!?]\s+/).map(x=>x.trim()).filter(x=>x.length>35&&x.length<150).slice(0,8);
+ for(const x of sentences)terms.push({q:'Quelle affirmation correspond à cette fiche ?',a:x});
+ }
+ return terms.slice(0,12);
+}
+v2id('v2quizstart').onclick=()=>{
+ const f=fiches.find(x=>x.id===v2id('v2quizselect').value);if(!f)return;
+ const terms=v2Questions(f);v2activeQuiz=terms.slice(0,8).map((t,i)=>{const wrong=terms.filter((x,j)=>j!==i).map(x=>x.a).slice(0,3);const options=[t.a,...wrong];for(let j=options.length-1;j>0;j--){let k=Math.floor(Math.random()*(j+1));[options[j],options[k]]=[options[k],options[j]]}return {...t,options}});
+ if(!v2activeQuiz.length){v2id('v2quizarea').textContent='Cette fiche ne contient pas encore assez de définitions pour un quiz automatique.';return}
+ v2id('v2quizarea').innerHTML=v2activeQuiz.map((t,i)=>'<div class="v2question"><b>'+(i+1)+'. '+v2escape(t.q)+'</b>'+t.options.map((o,j)=>'<label><input type="radio" name="v2q'+i+'" value="'+j+'"> '+v2escape(o)+'</label>').join('')+'</div>').join('')+'<button id="v2checkquiz">Corriger mon quiz</button><div id="v2quizresult"></div>';
+ v2id('v2checkquiz').onclick=()=>{let good=0;let report=[];v2activeQuiz.forEach((t,i)=>{const selected=document.querySelector('input[name="v2q'+i+'"]:checked');const answer=selected?t.options[Number(selected.value)]:null;if(answer===t.a)good++;else report.push('<p>Question '+(i+1)+' : '+v2escape(t.a)+'</p>')});const score=Math.round(good/v2activeQuiz.length*100);v2state.quizResults.push({id:f.id,date:new Date().toISOString(),score});v2save();v2id('v2quizresult').innerHTML='<h3>Résultat : '+good+'/'+v2activeQuiz.length+' ('+score+' %)</h3>'+report.join('');v2refresh()};
+};
+v2id('v2cardstart').onclick=()=>{const f=fiches.find(x=>x.id===v2id('v2cardselect').value);if(!f)return;v2cardDeck=v2Questions(f);v2cardIndex=0;v2cardFlipped=false;v2renderCard()};
+function v2renderCard(){
+ const box=v2id('v2cardarea');if(!v2cardDeck.length){box.innerHTML='<p>Aucune carte disponible pour cette fiche.</p>';return}
+ const t=v2cardDeck[v2cardIndex%v2cardDeck.length];
+ box.innerHTML='<p class="v2muted">Carte '+(v2cardIndex+1)+' / '+v2cardDeck.length+'</p><div id="v2flip" class="v2flip" tabindex="0" role="button">'+v2escape(v2cardFlipped?t.a:t.q)+'</div><p class="v2muted">Clique sur la carte pour la retourner.</p><div class="v2row"><button class="secondary" data-v2rate="0">❌ À revoir</button><button class="secondary" data-v2rate="1">🟡 Presque</button><button data-v2rate="2">✅ Je connais</button></div>';
+ v2id('v2flip').onclick=()=>{v2cardFlipped=!v2cardFlipped;v2renderCard()};
+ v2id('v2flip').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();v2id('v2flip').click()}};
+ document.querySelectorAll('[data-v2rate]').forEach(b=>b.onclick=()=>{const fId=v2id('v2cardselect').value;v2state.cards[fId+'-'+v2cardIndex]=Number(b.dataset.v2rate);v2save();if(v2cardIndex===v2cardDeck.length-1){const weak=v2cardDeck.map((_,i)=>i).filter(i=>v2state.cards[fId+'-'+i]!==2);if(weak.length){v2cardDeck=weak.map(i=>v2cardDeck[i]);v2cardIndex=0;v2cardFlipped=false;v2renderCard()}else v2id('v2cardarea').innerHTML='<h3>🎉 Toutes les cartes sont maîtrisées !</h3>'}else{v2cardIndex++;v2cardFlipped=false;v2renderCard()}})}
+}
+v2id('v2exportstats').onclick=()=>{const a=document.createElement('a');const url=URL.createObjectURL(new Blob([JSON.stringify(v2state,null,2)],{type:'application/json'}));a.href=url;a.download='progression-revision.json';a.click();URL.revokeObjectURL(url)};
+v2id('v2importstats').onchange=async e=>{try{const x=JSON.parse(await e.target.files[0].text());if(!x||!Array.isArray(x.favorites)||!Array.isArray(x.read)||!Array.isArray(x.exams))throw Error();if(confirm('Remplacer ta progression actuelle par cette sauvegarde ?')){v2state={...v2default(),...x};v2save();v2refresh()}}catch(e){alert('Sauvegarde invalide')}};
+const v2OriginalRender=render;
+render=function(){v2OriginalRender();if(v2tab==='favorites')v2filterFavorites()};
+v2show('home');
+
 </script>
 <style>
 @media print{header,.toolbar,.stats,.sidebar,.content-head,.readerbar,footer,.formpanel{display:none!important}body,main,.content{background:white;margin:0;padding:0;border:0;box-shadow:none}.layout{display:block}.reader{display:block!important}.readerbody{font-size:12pt}}
