@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mes fiches de révision</title>
+<style>
+:root{--bg:#f5f6fa;--panel:#fff;--text:#172033;--muted:#667085;--line:#e5e7ef;--accent:#635bff;--accent2:#eeeefe;--shadow:0 10px 30px rgba(23,32,51,.07)}
+:root[data-theme="dark"]{--bg:#10121a;--panel:#191c27;--text:#f1f3fa;--muted:#a4abc0;--line:#303546;--accent:#938bff;--accent2:#292744;--shadow:0 10px 30px rgba(0,0,0,.22)}
+:root[data-theme="dark"] .search,:root[data-theme="dark"] .field input,:root[data-theme="dark"] .field select,:root[data-theme="dark"] .field textarea{background:#11141e;color:var(--text);border-color:var(--line)}
+:root[data-theme="dark"] .count{background:#292d3b;color:#d6d9e5}
+:root[data-theme="dark"] .tag{background:#302d54;color:#d3ceff}
+:root[data-theme="dark"] .secondary{background:#202432;color:var(--text);border-color:var(--line)}
+:root[data-theme="dark"] .danger{background:#3b2027;color:#ffb4b4}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(125deg,#171a35,#34316f 65%,#635bff);color:white;padding:34px 20px 60px}
+.wrap{max-width:1120px;margin:auto}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:14px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;opacity:.9}.pill{border:1px solid #ffffff55;border-radius:999px;padding:6px 11px;font-size:12px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.08;letter-spacing:-.04em;margin:24px 0 12px}.hero p{color:#e1e2ff;max-width:650px;margin:0}
+main{max-width:1120px;margin:-28px auto 50px;padding:0 20px}.toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;margin-bottom:20px}.search{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:white;font:inherit;outline:none}.search:focus,input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #635bff1c}
+button{border:0;border-radius:12px;padding:12px 16px;background:var(--accent);color:#fff;font:inherit;font-weight:700;cursor:pointer;transition:.15s}button:hover{filter:brightness(.96);transform:translateY(-1px)}button.secondary{background:white;color:var(--text);border:1px solid var(--line)}button.danger{background:#fff0f0;color:#b42318}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}.stat,.sidebar,.content,.card,.empty,.formpanel{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.stat{padding:16px 18px}.stat strong{font-size:25px;display:block;line-height:1.2}.stat span{color:var(--muted);font-size:13px}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:18px}.sidebar{padding:17px;height:max-content}.section-label{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin:3px 10px 10px}.cat{display:flex;justify-content:space-between;align-items:center;width:100%;padding:10px 11px;background:transparent;color:var(--text);text-align:left;font-weight:600;margin:2px 0}.cat:hover,.cat.active{background:var(--accent2);color:#4038c9;transform:none}.count{font-size:12px;color:var(--muted);background:#f1f2f8;border-radius:99px;padding:2px 7px}
+.content{padding:22px;min-width:0}.content-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:18px}.content-head h2{margin:0;font-size:24px;letter-spacing:-.03em}.sub{margin:4px 0 0;color:var(--muted);font-size:14px}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{box-shadow:none;padding:18px;display:flex;flex-direction:column;min-height:200px}.cardtop{display:flex;justify-content:space-between;align-items:center;gap:10px}.tag{display:inline-flex;align-items:center;background:#f0efff;color:#4e46cf;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800}.date{font-size:12px;color:var(--muted)}.card h3{font-size:19px;line-height:1.25;margin:15px 0 8px;letter-spacing:-.02em}.card p{font-size:14px;color:var(--muted);margin:0 0 18px}.cardbottom{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}.smallbtn{font-size:13px;padding:8px 11px;border-radius:9px}.empty{padding:42px 20px;text-align:center;box-shadow:none}.empty .emoji{font-size:32px}.empty h3{margin:8px 0 4px}.empty p{color:var(--muted);margin:0 0 18px}
+.formpanel{padding:20px;margin-bottom:18px;display:none}.formpanel.open{display:block}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:800}.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;background:white;color:var(--text);width:100%}.field textarea{min-height:180px;resize:vertical}.formactions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.reader{display:none}.reader.open{display:block}.readerbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}.readerbody{white-space:pre-wrap;font-size:15px;line-height:1.75}.readerbody h2,.readerbody h3{margin-top:24px}.readerbody ul{padding-left:22px}
+.notice{font-size:12px;color:var(--muted);margin-top:18px;padding:12px;border-top:1px solid var(--line)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 30px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.sidebar{padding:12px}.cats{display:flex;flex-wrap:wrap}.cat{width:auto;gap:10px}.stats{gap:8px}.stat{padding:12px}.toolbar{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.content{padding:16px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.content-head{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap hero">
+    <div class="topline"><div class="brand">✦ Bibliothèque scolaire</div><div style="display:flex;gap:8px;align-items:center"><button id="themeBtn" class="secondary" style="background:#ffffff18;color:white;border-color:#ffffff55;padding:8px 11px" aria-label="Activer le thème sombre">☾ Thème sombre</button><span class="pill">Ton espace de révision</span></div></div>
+    <h1>Mes fiches de<br>révision.</h1>
+    <p>Toutes tes fiches au même endroit, classées par matière. Retrouve-les vite, ajoute les prochaines et révise à ton rythme.</p>
+  </div>
+</header>
+<main>
+  <div class="toolbar">
+    <input id="search" class="search" type="search" placeholder="🔎  Rechercher une fiche, une date, une notion…" aria-label="Rechercher une fiche">
+    <button id="newBtn">＋ Ajouter une fiche</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><strong id="totalStat">1</strong><span>Fiches enregistrées</span></div>
+    <div class="stat"><strong id="subjectStat">1</strong><span>Matières</span></div>
+    <div class="stat"><strong id="visibleStat">1</strong><span>Résultats affichés</span></div>
+  </div>
+  <section id="formpanel" class="formpanel">
+    <h2 id="formTitle" style="margin:0 0 14px">Ajouter une fiche</h2>
+    <form id="ficheForm">
+      <div class="formgrid">
+        <div class="field"><label for="title">Titre de la fiche *</label><input id="title" required placeholder="Ex. La Révolution française"></div>
+        <div class="field"><label for="subject">Matière *</label><input id="subject" required list="subjectList" placeholder="Ex. Histoire"><datalist id="subjectList"><option>Histoire</option><option>Géographie</option><option>Français</option><option>Mathématiques</option><option>Physique-chimie</option><option>SVT</option><option>Anglais</option><option>Économie</option><option>Informatique</option></datalist></div>
+        <div class="field"><label for="level">Niveau</label><select id="level"><option>Première</option><option>Seconde</option><option>Terminale</option><option>Autre</option></select></div>
+        <div class="field"><label for="topic">Chapitre / catégorie</label><input id="topic" placeholder="Ex. Thème 1"></div>
+        <div class="field full"><label for="summary">Résumé (facultatif)</label><input id="summary" placeholder="Quelques mots pour retrouver la fiche"></div>
+        <div class="field full"><label for="body">Contenu de la fiche *</label><textarea id="body" required placeholder="Colle ici le contenu de ta fiche de révision…"></textarea></div>
+      </div>
+      <div class="formactions"><button type="button" class="secondary" id="cancelBtn">Annuler</button><button type="submit">Enregistrer la fiche</button></div>
+    </form>
+  </section>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="section-label">Catégories</div>
+      <div id="categories" class="cats"></div>
+      <div class="notice">Les fiches sont sauvegardées dans ce navigateur. Pense à exporter une sauvegarde de temps en temps.</div>
+      <button id="exportBtn" class="secondary" style="width:100%;margin-top:12px">↓ Exporter la bibliothèque</button>
+      <label for="importFile" class="secondary" style="display:block;text-align:center;border:1px solid var(--line);border-radius:12px;padding:11px;margin-top:8px;cursor:pointer;font-weight:700;font-size:14px">↑ Importer une sauvegarde</label>
+      <input id="importFile" type="file" accept="application/json" style="display:none">
+    </aside>
+    <section class="content">
+      <div id="listing">
+        <div class="content-head"><div><h2 id="listTitle">Toutes les fiches</h2><p id="listSub" class="sub">Tes cours rangés au même endroit.</p></div></div>
+        <div id="cards" class="cards"></div>
+      </div>
+      <div id="reader" class="reader">
+        <div class="readerbar"><button class="secondary" id="backBtn">← Retour aux fiches</button><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="editBtn">Modifier</button><button class="secondary" id="printBtn">Imprimer</button></div></div>
+        <span id="readTag" class="tag"></span><h2 id="readTitle" style="font-size:28px;line-height:1.2;letter-spacing:-.03em"></h2><p id="readMeta" class="sub"></p><p id="readSummary" class="sub"></p><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><div id="readBody" class="readerbody"></div>
+      </div>
+    </section>
+  </div>
+</main>
+<footer>Mes fiches de révision · Un espace simple, à toi de jouer.</footer>
+<script>
+const KEY='mes-fiches-revision-v1';
+const THEME_KEY='mes-fiches-theme';
+function applyTheme(theme){document.documentElement.dataset.theme=theme;const b=document.getElementById('themeBtn');if(b){b.textContent=theme==='dark'?'☀ Thème clair':'☾ Thème sombre';b.setAttribute('aria-label',theme==='dark'?'Activer le thème clair':'Activer le thème sombre');}}
+applyTheme(localStorage.getItem(THEME_KEY)||'light');
+const initial=[{
+ id:'histoire-revolution-1789-1815',title:"L’Europe bouleversée par la Révolution française (1789-1815)",subject:"Histoire",level:"Première",topic:"Thème 1",summary:"Révolution française, République, Napoléon et congrès de Vienne.",
+ body:`PROBLÉMATIQUE
+Comment la Révolution française et Napoléon ont-ils transformé la France et l’Europe entre 1789 et 1815 ?
+
+1. LA RÉVOLUTION FRANÇAISE (1789-1792)
+Avant 1789, la France est une monarchie absolue dirigée par Louis XVI. La société est divisée en trois ordres : le clergé, la noblesse et le tiers état.
+
+Causes :
+• Inégalités sociales et privilèges.
+• Crise financière de l’État et mauvaises récoltes.
+• Idées des Lumières, qui défendent la liberté et l’égalité.
+
+Dates :
+• 14 juillet 1789 : prise de la Bastille.
+• 4 août 1789 : abolition des privilèges.
+• 26 août 1789 : Déclaration des droits de l’homme et du citoyen (DDHC).
+• 1791 : monarchie constitutionnelle.
+
+À retenir : la Révolution met fin à l’Ancien Régime et affirme la liberté, l’égalité devant la loi et la souveraineté nationale.
+
+2. LA RÉPUBLIQUE ET LA TERREUR (1792-1799)
+• 10 août 1792 : chute de la monarchie.
+• 21 septembre 1792 : proclamation de la République.
+• 21 janvier 1793 : exécution de Louis XVI.
+• 1793-1794 : Terreur, période de répression violente des opposants, notamment sous Robespierre.
+• 1795-1799 : le Directoire gouverne la France dans un contexte d’instabilité.
+La France est en guerre contre plusieurs monarchies européennes qui craignent la diffusion des idées révolutionnaires.
+
+3. NAPOLÉON BONAPARTE ET L’EMPIRE (1799-1815)
+• 1799 : coup d’État du 18 Brumaire ; Napoléon devient Premier consul.
+• 1804 : Napoléon devient empereur.
+
+Réformes :
+• Code civil (1804) : égalité devant la loi des hommes et protection de la propriété privée, mais maintien d’inégalités entre les sexes.
+• Lycées : former les futurs cadres de l’État.
+• Préfets : renforcer le contrôle de l’État dans les départements.
+• Concordat (1801) : rétablir la paix religieuse avec l’Église catholique.
+
+Napoléon conserve certains acquis de la Révolution, mais son régime est autoritaire : il concentre les pouvoirs et limite les libertés politiques.
+
+4. UNE EUROPE TRANSFORMÉE
+Les conquêtes napoléoniennes diffusent l’égalité devant la loi, la suppression des privilèges féodaux dans plusieurs territoires et le Code civil.
+Mais les impôts, les réquisitions et la domination française provoquent des résistances nationales.
+
+Dates :
+• 1805 : victoire française à Austerlitz.
+• 1812 : échec de la campagne de Russie.
+• 1814 : première abdication de Napoléon.
+• 1815 : retour pendant les Cent-Jours puis défaite à Waterloo le 18 juin.
+
+5. LE CONGRÈS DE VIENNE (1814-1815)
+Après la défaite de Napoléon, les grandes puissances réorganisent l’Europe. Elles veulent rétablir les monarchies, rééquilibrer les puissances et éviter qu’un seul pays domine l’Europe. Les idées de liberté, d’égalité et de nation continuent toutefois de se diffuser.
+
+DATES À APPRENDRE
+1789 : début de la Révolution.
+1791 : monarchie constitutionnelle.
+1792 : République.
+1793-1794 : Terreur.
+1799 : coup d’État de Napoléon.
+1804 : Napoléon devient empereur.
+1812 : échec en Russie.
+1815 : Waterloo et fin définitive de l’Empire.
+
+DÉFINITIONS
+• Ancien Régime : organisation politique et sociale avant 1789.
+• Monarchie absolue : le roi concentre l’essentiel des pouvoirs.
+• Monarchie constitutionnelle : les pouvoirs du roi sont limités par une Constitution.
+• République : régime sans roi héréditaire.
+• Souveraineté nationale : le pouvoir appartient à la nation.
+• Coup d’État : prise du pouvoir en dehors des règles constitutionnelles.
+• Restauration : retour de la monarchie après la chute de Napoléon.
+
+BILAN
+Entre 1789 et 1815, la France passe de la monarchie absolue à la Révolution, puis à la République et à l’Empire. Napoléon diffuse certains principes révolutionnaires en Europe, mais ses conquêtes suscitent des résistances. Après sa défaite en 1815, le congrès de Vienne cherche à rétablir l’ordre monarchique.`
+}];
+let fiches=load();
+let activeCategory='Toutes';
+let currentId=null;
+let editingId=null;
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY));return Array.isArray(x)&&x.length?x:initial.slice()}catch(e){return initial.slice()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(fiches))}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function subjects(){return [...new Set(fiches.map(f=>f.subject).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'))}
+function render(){
+ const cats=document.getElementById('categories');
+ const counts={};fiches.forEach(f=>counts[f.subject]=(counts[f.subject]||0)+1);
+ cats.innerHTML=`<button class="cat ${activeCategory==='Toutes'?'active':''}" data-cat="Toutes">Toutes les fiches <span class="count">${fiches.length}</span></button>`+
+ subjects().map(s=>`<button class="cat ${activeCategory===s?'active':''}" data-cat="${esc(s)}">${esc(s)} <span class="count">${counts[s]}</span></button>`).join('');
+ cats.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.cat;document.getElementById('reader').classList.remove('open');document.getElementById('listing').style.display='block';render()}));
+ const q=document.getElementById('search').value.toLocaleLowerCase('fr').trim();
+ const filtered=fiches.filter(f=>(activeCategory==='Toutes'||f.subject===activeCategory)&&[f.title,f.subject,f.topic,f.summary,f.body,f.level].join(' ').toLocaleLowerCase('fr').includes(q));
+ document.getElementById('totalStat').textContent=fiches.length;
+ document.getElementById('subjectStat').textContent=subjects().length;
+ document.getElementById('visibleStat').textContent=filtered.length;
+ document.getElementById('listTitle').textContent=activeCategory==='Toutes'?'Toutes les fiches':activeCategory;
+ document.getElementById('listSub').textContent=`${filtered.length} fiche${filtered.length>1?'s':''} · Recherche et catégories`;
+ const cards=document.getElementById('cards');
+ if(!filtered.length){cards.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="emoji">📚</div><h3>Aucune fiche trouvée</h3><p>Essaie un autre mot-clé ou ajoute une fiche.</p><button id="emptyAdd">＋ Ajouter une fiche</button></div>';document.getElementById('emptyAdd').onclick=openNew}
+ else cards.innerHTML=filtered.map(f=>`<article class="card"><div class="cardtop"><span class="tag">${esc(f.subject)}</span><span class="date">${esc(f.level||'')}</span></div><h3>${esc(f.title)}</h3><p>${esc(f.summary||f.topic||'Fiche de révision')}</p><div class="cardbottom"><button class="smallbtn" data-open="${esc(f.id)}">Lire la fiche →</button><button class="smallbtn secondary" data-edit="${esc(f.id)}">Modifier</button><button class="smallbtn secondary" data-delete="${esc(f.id)}" aria-label="Supprimer">Supprimer</button></div></article>`).join('');
+ cards.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openReader(b.dataset.open));
+ cards.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openEdit(b.dataset.edit));
+ cards.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>removeFiche(b.dataset.delete));
+}
+function openReader(id){const f=fiches.find(x=>x.id===id);if(!f)return;currentId=id;document.getElementById('listing').style.display='none';document.getElementById('reader').classList.add('open');document.getElementById('readTag').textContent=f.subject+(f.topic?' · '+f.topic:'');document.getElementById('readTitle').textContent=f.title;document.getElementById('readMeta').textContent=(f.level||'')+' · Ajoutée à ta bibliothèque';document.getElementById('readSummary').textContent=f.summary||'';document.getElementById('readBody').textContent=f.body;window.scrollTo({top:0,behavior:'smooth'})}
+function closeReader(){document.getElementById('reader').classList.remove('open');document.getElementById('listing').style.display='block';render()}
+function openNew(){editingId=null;document.getElementById('ficheForm').reset();document.getElementById('formTitle').textContent='Ajouter une fiche';document.getElementById('formpanel').classList.add('open');document.getElementById('subject').value=activeCategory==='Toutes'?'':activeCategory;document.getElementById('formpanel').scrollIntoView({behavior:'smooth',block:'start'})}
+function openEdit(id){const f=fiches.find(x=>x.id===id);if(!f)return;editingId=id;document.getElementById('formTitle').textContent='Modifier la fiche';document.getElementById('title').value=f.title;document.getElementById('subject').value=f.subject;document.getElementById('level').value=f.level||'Première';document.getElementById('topic').value=f.topic||'';document.getElementById('summary').value=f.summary||'';document.getElementById('body').value=f.body;document.getElementById('formpanel').classList.add('open');document.getElementById('formpanel').scrollIntoView({behavior:'smooth',block:'start'})}
+function removeFiche(id){const f=fiches.find(x=>x.id===id);if(!f)return;if(confirm(`Supprimer la fiche « ${f.title} » ?`)){fiches=fiches.filter(x=>x.id!==id);save();render();if(currentId===id)closeReader()}}
+document.getElementById('themeBtn').onclick=()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(THEME_KEY,next);applyTheme(next)};
+document.getElementById('newBtn').onclick=openNew;
+document.getElementById('cancelBtn').onclick=()=>document.getElementById('formpanel').classList.remove('open');
+document.getElementById('backBtn').onclick=closeReader;
+document.getElementById('editBtn').onclick=()=>openEdit(currentId);
+document.getElementById('printBtn').onclick=()=>window.print();
+document.getElementById('search').addEventListener('input',render);
+document.getElementById('ficheForm').addEventListener('submit',e=>{e.preventDefault();const old=editingId?fiches.find(x=>x.id===editingId):null;const f={id:editingId||('fiche-'+Date.now()),title:document.getElementById('title').value.trim(),subject:document.getElementById('subject').value.trim(),level:document.getElementById('level').value,topic:document.getElementById('topic').value.trim(),summary:document.getElementById('summary').value.trim(),body:document.getElementById('body').value.trim()};if(!f.title||!f.subject||!f.body)return;if(old)fiches=fiches.map(x=>x.id===editingId?f:x);else fiches.unshift(f);activeCategory='Toutes';save();document.getElementById('formpanel').classList.remove('open');document.getElementById('search').value='';render();openReader(f.id)});
+document.getElementById('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(fiches,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mes-fiches-de-revision.json';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('importFile').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!Array.isArray(data)||!data.every(f=>f.title&&f.subject&&f.body))throw new Error();if(confirm('Importer cette sauvegarde et remplacer la bibliothèque actuelle ?')){fiches=data;save();activeCategory='Toutes';render();alert('Bibliothèque importée !')}}catch(err){alert('Fichier invalide. Choisis une sauvegarde JSON exportée depuis ce site.')}e.target.value=''});
+// Ensure starter fiche is persisted on first visit.
+if(!localStorage.getItem(KEY))save();
+render();
+</script>
+<style>
+@media print{header,.toolbar,.stats,.sidebar,.content-head,.readerbar,footer,.formpanel{display:none!important}body,main,.content{background:white;margin:0;padding:0;border:0;box-shadow:none}.layout{display:block}.reader{display:block!important}.readerbody{font-size:12pt}}
+</style>
+</body>
+</html>
