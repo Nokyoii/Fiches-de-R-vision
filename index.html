@@ -57,6 +57,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 @media(max-width:760px){header{padding:23px 16px 60px}main{padding:0 12px}.v2tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.v2tabs button{font-size:12px;padding:10px 4px;white-space:normal}.v2panel{padding:16px}.v2grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v2box{padding:12px}.v2box strong{font-size:20px}}
 @media(max-width:380px){.v2grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* V2.5 */
+#v2librarytoolbar{grid-template-columns:minmax(0,1fr) 150px 170px auto}
+#v3subjectstats .v2box{margin:10px 0}
+#v3practicearea textarea{max-width:100%}
+@media(max-width:850px){#v2librarytoolbar{grid-template-columns:1fr 1fr}#v2librarytoolbar #search{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -68,15 +74,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   </div>
 </header>
 <main>
-<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="private">🔐 Mes fiches</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button><button data-v2tab="settings">⚙️ Paramètres</button></nav>
+<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="private">🔐 Mes fiches</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button><button data-v2tab="practice">📝 Exercices</button><button data-v2tab="settings">⚙️ Paramètres</button></nav>
 <section id="v2home" class="v2panel on"><h2>👋 Prêt à réviser ?</h2><p class="v2muted">Tes fiches, tes outils et tes révisions au même endroit.</p><div class="v2grid"><div class="v2box"><strong id="v2total">0</strong>Fiches disponibles</div><div class="v2box"><strong id="v2done">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2next">—</strong>Fiches personnelles</div><div class="v2box"><strong id="v2score">—</strong>Moyenne aux quiz</div></div><h3>Continuer à réviser</h3><div id="v2recent"></div><button id="v2openlibrary">Voir toutes les fiches →</button></section>
-<section id="v2quiz" class="v2panel"><h2>🧠 Quiz interactifs</h2><p class="v2muted">Choisis une fiche, réponds aux questions et vérifie tes connaissances.</p><div class="v2row"><select id="v2quizselect" class="v2input"></select><button id="v2quizstart">Commencer</button></div><div id="v2quizarea"></div></section>
-<section id="v2cards" class="v2panel"><h2>🃏 Flashcards</h2><p class="v2muted">Retourne les cartes et indique si tu connais la réponse.</p><div class="v2row"><select id="v2cardselect" class="v2input"></select><button id="v2cardstart">Réviser</button></div><div id="v2cardarea"></div></section>
+<section id="v2quiz" class="v2panel"><h2>🧠 Quiz interactifs</h2><p class="v2muted">Choisis une fiche, réponds aux questions et vérifie tes connaissances.</p><div class="v2row"><select id="v2quizselect" class="v2input"></select><label>Difficulté <select id="v3difficulty" class="v2input"><option value="easy">Facile</option><option value="medium">Moyen</option><option value="hard">Difficile</option><option value="mixed">Mixte</option></select></label><label>Questions <select id="v3count" class="v2input"><option>10</option><option>20</option><option>30</option></select></label><label>Durée <select id="v3minutes" class="v2input"><option value="0">Sans limite</option><option>10</option><option>20</option><option>30</option></select></label><button id="v2quizstart">Lancer mon examen</button></div><p class="v2muted">Les questions automatiques sont issues des définitions de la fiche. Si le cours ne contient pas assez de notions distinctes, le quiz sera plus court.</p><div id="v2quizarea"></div></section>
+<section id="v2cards" class="v2panel"><h2>🃏 Flashcards</h2><p class="v2muted">Retourne les cartes et indique si tu connais la réponse.</p><div class="v2row"><select id="v2cardselect" class="v2input"></select><label>Mode <select id="v3cardmode" class="v2input"><option value="discover">Découverte</option><option value="memory">Mémorisation</option><option value="fast">Rapide (5 min)</option></select></label><button id="v2cardstart">Réviser</button></div><div id="v2cardarea"></div></section>
 <section id="v2private" class="v2panel"><h2>🔐 Mes fiches personnelles</h2><p class="v2muted">Pour le moment, ces fiches sont enregistrées <strong>sur cet appareil uniquement</strong>. Ce n'est pas encore un espace privé sécurisé avec compte : n'y mets pas d'informations sensibles.</p><div class="v2row"><button id="v2newprivate">＋ Créer une fiche personnelle</button><button class="secondary" id="v2privatelibrary">Ouvrir la bibliothèque</button></div><div id="v2privatelist"></div></section>
+<section id="v2practice" class="v2panel"><h2>📝 Mode exercices</h2><p class="v2muted">Entraîne-toi sur les notions de tes fiches. Tu peux révéler un indice et comparer ta réponse avec le cours.</p><div class="v2row"><select id="v3practiceselect" class="v2input"></select><button id="v3practicestart">Commencer</button></div><div id="v3practicearea"></div></section>
 <section id="v2settings" class="v2panel"><h2>⚙️ Personnaliser mon espace</h2><p class="v2muted">Tes choix sont conservés dans ce navigateur.</p><div class="v2grid"><div class="v2box"><h3>🎨 Couleur principale</h3><div class="v2row" id="v2colors"><button data-color="#8b5cf6" aria-label="Violet">🟣</button><button data-color="#2563eb" aria-label="Bleu">🔵</button><button data-color="#dc2626" aria-label="Rouge">🔴</button><button data-color="#059669" aria-label="Vert">🟢</button><button data-color="#ea580c" aria-label="Orange">🟠</button></div><label>Ma couleur <input id="v2color" type="color" value="#8b5cf6"></label></div><div class="v2box"><h3>🖥️ Affichage</h3><label>Thème <select id="v2theme" class="v2input"><option value="dark">Sombre</option><option value="light">Clair</option></select></label><p><label>Taille du texte <select id="v2font" class="v2input"><option value="14">Compact</option><option value="16">Normal</option><option value="18">Grand</option><option value="20">Très grand</option></select></label></p><label><input id="v2motion" type="checkbox"> Réduire les animations</label></div><div class="v2box"><h3>📚 Présentation</h3><label>Fiches <select id="v2view" class="v2input"><option value="grid">Grille</option><option value="list">Liste</option></select></label><p><label>Angles <select id="v2round" class="v2input"><option value="rounded">Arrondis</option><option value="square">Carrés</option></select></label></p><button class="secondary" id="v2resetsettings">Réinitialiser l'apparence</button></div></div><p class="v2muted">Les comptes publics et les fiches privées synchronisées seront ajoutés lors de la phase dédiée à l'authentification.</p></section>
 <section id="v2stats" class="v2panel"><h2>📊 Ma progression</h2><div class="v2grid"><div class="v2box"><strong id="v2statread">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2statquiz">0</strong>Quiz réalisés</div><div class="v2box"><strong id="v2statavg">—</strong>Score moyen</div><div class="v2box"><strong id="v2stattime">0 min</strong>Temps de révision estimé</div></div><h3>Progression</h3><div class="v2progress"><div id="v2bar" style="width:0"></div></div><p id="v2progresslabel" class="v2muted"></p><p class="v2muted">Données enregistrées dans ce navigateur. Utilise la sauvegarde pour les transférer.</p><button id="v2exportstats" class="secondary">↓ Exporter ma progression</button><label style="display:inline-block;margin-left:8px;cursor:pointer">↑ Importer ma progression <input type="file" id="v2importstats" accept="application/json" style="max-width:180px"></label></section>
   <div class="toolbar" id="v2librarytoolbar">
-    <input id="search" class="search" type="search" placeholder="🔎  Rechercher une fiche, une date, une notion…" aria-label="Rechercher une fiche">
+    <input id="search" class="search" type="search" placeholder="🔎  Rechercher un mot, une formule, une notion…" aria-label="Rechercher une fiche"><select id="v3level" class="v2input" aria-label="Filtrer par niveau"><option value="">Tous les niveaux</option></select><select id="v3topic" class="v2input" aria-label="Filtrer par chapitre"><option value="">Tous les chapitres</option></select>
     <button id="newBtn">＋ Ajouter une fiche</button>
   </div>
   <div class="stats" id="v2librarystats">
@@ -216,7 +223,7 @@ function render(){
  subjects().map(s=>`<button class="cat ${activeCategory===s?'active':''}" data-cat="${esc(s)}">${esc(s)} <span class="count">${counts[s]}</span></button>`).join('');
  cats.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.cat;document.getElementById('reader').classList.remove('open');document.getElementById('listing').style.display='block';render()}));
  const q=document.getElementById('search').value.toLocaleLowerCase('fr').trim();
- const filtered=fiches.filter(f=>(activeCategory==='Toutes'||f.subject===activeCategory)&&[f.title,f.subject,f.topic,f.summary,f.body,f.level].join(' ').toLocaleLowerCase('fr').includes(q));
+ const filtered=fiches.filter(f=>(activeCategory==='Toutes'||f.subject===activeCategory)&&(!document.getElementById('v3level').value||f.level===document.getElementById('v3level').value)&&(!document.getElementById('v3topic').value||f.topic===document.getElementById('v3topic').value)&&[f.title,f.subject,f.topic,f.summary,f.body,f.level].join(' ').toLocaleLowerCase('fr').includes(q));
  document.getElementById('totalStat').textContent=fiches.length;
  document.getElementById('subjectStat').textContent=subjects().length;
  document.getElementById('visibleStat').textContent=filtered.length;
@@ -281,7 +288,7 @@ function v2refresh(){
  v2id('v2bar').style.width=(fiches.length?Math.round(done/fiches.length*100):0)+'%';v2id('v2progresslabel').textContent=done+' / '+fiches.length+' fiches étudiées';
  v2id('v2recent').innerHTML=fiches.slice(0,4).map(f=>'<button class="secondary" style="margin:4px" data-v2read="'+v2escape(f.id)+'">'+v2escape(f.subject)+' · '+v2escape(f.title)+'</button>').join('');
  document.querySelectorAll('[data-v2read]').forEach(b=>b.onclick=()=>{v2show('library');openReader(b.dataset.v2read)});
- for(const id of ['v2quizselect','v2cardselect']){const sel=v2id(id),before=sel.value;sel.innerHTML=fiches.map(f=>'<option value="'+v2escape(f.id)+'">'+v2escape(f.subject)+' · '+v2escape(f.title)+'</option>').join('');if(fiches.some(f=>f.id===before))sel.value=before}
+ for(const id of ['v2quizselect','v2cardselect','v3practiceselect']){const sel=v2id(id),before=sel.value;sel.innerHTML=fiches.map(f=>'<option value="'+v2escape(f.id)+'">'+v2escape(f.subject)+' · '+v2escape(f.title)+'</option>').join('');if(fiches.some(f=>f.id===before))sel.value=before}
 
  v2id('v2privatelist').innerHTML=fiches.filter(f=>!initial.some(i=>i.id===f.id)).map(f=>'<div class="v2box v2row"><strong style="font-size:16px">'+v2escape(f.title)+'</strong><span class="v2muted">'+v2escape(f.subject)+'</span><button class="secondary" data-v2private="'+v2escape(f.id)+'">Ouvrir</button></div>').join('')||'<p class="v2muted">Aucune fiche personnelle sur cet appareil.</p>';
  document.querySelectorAll('[data-v2private]').forEach(b=>b.onclick=()=>{v2show('library');openReader(b.dataset.v2private)});
@@ -306,12 +313,28 @@ function v2Questions(f){
  }
  return terms.slice(0,12);
 }
+
+let v3quizDeadline=0,v3quizTimer=null,v3quizAnswers=[];
+function v3Shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function v3FinishQuiz(f){
+ if(v3quizTimer){clearInterval(v3quizTimer);v3quizTimer=null}
+ let good=0;const report=[];
+ v2activeQuiz.forEach((t,i)=>{const checked=document.querySelector('input[name="v2q'+i+'"]:checked');const ans=checked?t.options[Number(checked.value)]:null;if(ans===t.a)good++;else report.push('<div class="v2question"><b>'+v2escape(t.q)+'</b><p>Ta réponse : '+v2escape(ans||'Aucune')+'</p><p>Réponse attendue : '+v2escape(t.a)+'</p></div>')});
+ const score=Math.round(good/v2activeQuiz.length*100);v2state.quizResults.push({id:f.id,subject:f.subject,topic:f.topic,date:new Date().toISOString(),score,wrong:v2activeQuiz.filter((t,i)=>{const x=document.querySelector('input[name="v2q'+i+'"]:checked');return !x||t.options[Number(x.value)]!==t.a}).map(t=>t.q)});v2save();
+ v2id('v2quizarea').innerHTML='<h3>Résultat : '+good+'/'+v2activeQuiz.length+' — '+(score/5).toFixed(1)+'/20</h3><p>'+score+' % de réussite</p>'+report.join('')+'<button class="secondary" id="v3retry">Recommencer</button>';
+ v2id('v3retry').onclick=()=>v2id('v2quizstart').click();v2refresh();
+}
 v2id('v2quizstart').onclick=()=>{
+ if(v3quizTimer){clearInterval(v3quizTimer);v3quizTimer=null}
  const f=fiches.find(x=>x.id===v2id('v2quizselect').value);if(!f)return;
- const terms=v2Questions(f);v2activeQuiz=terms.slice(0,8).map((t,i)=>{const wrong=terms.filter((x,j)=>j!==i).map(x=>x.a).slice(0,3);const options=[t.a,...wrong];for(let j=options.length-1;j>0;j--){let k=Math.floor(Math.random()*(j+1));[options[j],options[k]]=[options[k],options[j]]}return {...t,options}});
- if(!v2activeQuiz.length){v2id('v2quizarea').textContent='Cette fiche ne contient pas encore assez de définitions pour un quiz automatique.';return}
- v2id('v2quizarea').innerHTML=v2activeQuiz.map((t,i)=>'<div class="v2question"><b>'+(i+1)+'. '+v2escape(t.q)+'</b>'+t.options.map((o,j)=>'<label><input type="radio" name="v2q'+i+'" value="'+j+'"> '+v2escape(o)+'</label>').join('')+'</div>').join('')+'<button id="v2checkquiz">Corriger mon quiz</button><div id="v2quizresult"></div>';
- v2id('v2checkquiz').onclick=()=>{let good=0;let report=[];v2activeQuiz.forEach((t,i)=>{const selected=document.querySelector('input[name="v2q'+i+'"]:checked');const answer=selected?t.options[Number(selected.value)]:null;if(answer===t.a)good++;else report.push('<p>Question '+(i+1)+' : '+v2escape(t.a)+'</p>')});const score=Math.round(good/v2activeQuiz.length*100);v2state.quizResults.push({id:f.id,date:new Date().toISOString(),score});v2save();v2id('v2quizresult').innerHTML='<h3>Résultat : '+good+'/'+v2activeQuiz.length+' ('+score+' %)</h3>'+report.join('');v2refresh()};
+ const terms=v2Questions(f);const count=Number(v2id('v3count').value);const difficulty=v2id('v3difficulty').value;
+ const chosen=v3Shuffle(terms).slice(0,count);
+ v2activeQuiz=chosen.map(t=>{const wrong=v3Shuffle(terms.filter(x=>x!==t&&x.a!==t.a)).slice(0,3).map(x=>x.a);return {...t,options:v3Shuffle([t.a,...wrong])}});
+ if(!v2activeQuiz.length){v2id('v2quizarea').textContent='Cette fiche ne contient pas assez de définitions pour un quiz automatique.';return}
+ const minutes=Number(v2id('v3minutes').value);v3quizDeadline=minutes?Date.now()+minutes*60000:0;
+ v2id('v2quizarea').innerHTML='<p class="v2muted">Difficulté : '+({easy:'Facile',medium:'Moyen',hard:'Difficile',mixed:'Mixte'}[difficulty])+' · '+v2activeQuiz.length+' questions disponibles</p><strong id="v3clock"></strong>'+v2activeQuiz.map((t,i)=>'<div class="v2question"><b>'+(i+1)+'. '+v2escape(t.q)+'</b>'+t.options.map((o,j)=>'<label><input type="radio" name="v2q'+i+'" value="'+j+'"> '+v2escape(o)+'</label>').join('')+'</div>').join('')+'<button id="v2checkquiz">Rendre ma copie</button>';
+ v2id('v2checkquiz').onclick=()=>v3FinishQuiz(f);
+ if(minutes){const tick=()=>{const el=v2id('v3clock');if(!el){clearInterval(v3quizTimer);v3quizTimer=null;return}const remaining=Math.max(0,Math.ceil((v3quizDeadline-Date.now())/1000));el.textContent='⏱ '+Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0');if(!remaining)v3FinishQuiz(f)};tick();v3quizTimer=setInterval(tick,1000)}
 };
 v2id('v2cardstart').onclick=()=>{const f=fiches.find(x=>x.id===v2id('v2cardselect').value);if(!f)return;v2cardDeck=v2Questions(f);v2cardIndex=0;v2cardFlipped=false;v2renderCard()};
 function v2renderCard(){
@@ -323,7 +346,7 @@ function v2renderCard(){
  document.querySelectorAll('[data-v2rate]').forEach(b=>b.onclick=()=>{const fId=v2id('v2cardselect').value;v2state.cards[fId+'-'+v2cardIndex]=Number(b.dataset.v2rate);v2save();if(v2cardIndex===v2cardDeck.length-1){const weak=v2cardDeck.map((_,i)=>i).filter(i=>v2state.cards[fId+'-'+i]!==2);if(weak.length){v2cardDeck=weak.map(i=>v2cardDeck[i]);v2cardIndex=0;v2cardFlipped=false;v2renderCard()}else v2id('v2cardarea').innerHTML='<h3>🎉 Toutes les cartes sont maîtrisées !</h3>'}else{v2cardIndex++;v2cardFlipped=false;v2renderCard()}})}
 }
 v2id('v2exportstats').onclick=()=>{const a=document.createElement('a');const url=URL.createObjectURL(new Blob([JSON.stringify(v2state,null,2)],{type:'application/json'}));a.href=url;a.download='progression-revision.json';a.click();URL.revokeObjectURL(url)};
-v2id('v2importstats').onchange=async e=>{try{const x=JSON.parse(await e.target.files[0].text());if(!x||!Array.isArray(x.favorites)||!Array.isArray(x.read)||!Array.isArray(x.exams))throw Error();if(confirm('Remplacer ta progression actuelle par cette sauvegarde ?')){v2state={...v2default(),...x};v2save();v2refresh()}}catch(e){alert('Sauvegarde invalide')}};
+v2id('v2importstats').onchange=async e=>{try{const x=JSON.parse(await e.target.files[0].text());if(!x||!Array.isArray(x.favorites)||!Array.isArray(x.read)||!Array.isArray(x.quizResults))throw Error();if(confirm('Remplacer ta progression actuelle par cette sauvegarde ?')){v2state={...v2default(),...x};v2save();v2refresh()}}catch(e){alert('Sauvegarde invalide')}};
 const v2OriginalRender=render;
 render=function(){v2OriginalRender();if(v2tab==='favorites')v2filterFavorites()};
 
@@ -355,6 +378,31 @@ v2id('v2resetsettings').onclick=()=>{v2prefs=v2prefsDefault();localStorage.setIt
 v2id('v2newprivate').onclick=()=>{v2show('library');openNew()};
 v2id('v2privatelibrary').onclick=()=>v2show('library');
 v2applyPrefs();
+
+
+/* V2.5 — filtres, entraînement et analyse par matière */
+function v3Filters(){
+ for(const [id,vals] of [['v3level',[...new Set(fiches.map(f=>f.level).filter(Boolean))]],['v3topic',[...new Set(fiches.map(f=>f.topic).filter(Boolean))]]]){
+ const select=v2id(id),previous=select.value,first=select.options[0].outerHTML;
+ select.innerHTML=first+vals.sort((a,b)=>a.localeCompare(b,'fr')).map(v=>'<option value="'+v2escape(v)+'">'+v2escape(v)+'</option>').join('');select.value=vals.includes(previous)?previous:'';
+ }
+}
+v3Filters();
+for(const id of ['v3level','v3topic'])v2id(id).onchange=()=>render();
+const v3OrigRender=render;render=function(){v3OrigRender();v3Filters()};
+v2id('v3practicestart').onclick=()=>{
+ const f=fiches.find(x=>x.id===v2id('v3practiceselect').value);if(!f)return;
+ const terms=v2Questions(f);if(!terms.length){v2id('v3practicearea').textContent='Pas assez de notions dans cette fiche.';return}
+ let i=0;const area=v2id('v3practicearea');
+ function show(){const t=terms[i];area.innerHTML='<p class="v2muted">Exercice '+(i+1)+'/'+terms.length+'</p><div class="v2question"><h3>'+v2escape(t.q)+'</h3><textarea id="v3answer" class="v2input" rows="4" style="width:100%" placeholder="Rédige ta réponse…"></textarea><div class="v2row"><button class="secondary" id="v3hint">Indice</button><button id="v3solution">Voir la correction</button><button class="secondary" id="v3next">Suivant</button></div><div id="v3feedback"></div></div>';v2id('v3hint').onclick=()=>v2id('v3feedback').textContent='Retrouve la définition ou la formule dans la fiche '+f.title+'.';v2id('v3solution').onclick=()=>v2id('v3feedback').innerHTML='<strong>Réponse attendue :</strong> '+v2escape(t.a);v2id('v3next').onclick=()=>{i=(i+1)%terms.length;show()}}show();
+};
+const v3OrigRefresh=v2refresh;v2refresh=function(){
+ v3OrigRefresh();
+ const bySubject={};for(const r of v2state.quizResults){const f=fiches.find(x=>x.id===r.id);const subject=r.subject||(f&&f.subject)||'Autre';(bySubject[subject]??=[]).push(r)}
+ let panel=v2id('v3subjectstats');if(!panel){panel=document.createElement('div');panel.id='v3subjectstats';v2id('v2stats').appendChild(panel)}
+ panel.innerHTML='<h3>Maîtrise par matière</h3>'+Object.entries(bySubject).map(([name,results])=>{const avg=Math.round(results.reduce((a,r)=>a+r.score,0)/results.length);const errors={};for(const r of results)for(const q of r.wrong||[])errors[q]=(errors[q]||0)+1;const weak=Object.entries(errors).sort((a,b)=>b[1]-a[1]).slice(0,3);return '<div class="v2box"><b>'+v2escape(name)+' : '+avg+' %</b><div class="v2progress"><div style="width:'+avg+'%"></div></div>'+ (weak.length?'<p class="v2muted">À retravailler : '+weak.map(([q,n])=>v2escape(q)+' ('+n+')').join(' · ')+'</p>':'')+'</div>'}).join('')+(Object.keys(bySubject).length?'':'<p class="v2muted">Termine un quiz pour afficher ta progression.</p>');
+};
+v2refresh();
 
 v2show('home');
 
