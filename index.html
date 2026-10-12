@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171a35">
+<meta name="description" content="Fiches de révision, quiz, flashcards et exercices pour le lycée.">
+<link rel="manifest" href="./manifest.webmanifest">
 <title>Mes fiches de révision</title>
 <style>
 :root{--bg:#f5f6fa;--panel:#fff;--text:#172033;--muted:#667085;--line:#e5e7ef;--accent:#635bff;--accent2:#eeeefe;--shadow:0 10px 30px rgba(23,32,51,.07)}
@@ -259,7 +262,7 @@ render();
 const V2KEY='fiches-v2-progress';
 const v2default=()=>({favorites:[],read:[],visits:[],quizResults:[],exams:[],cards:{},seconds:0});
 let v2state;try{v2state={...v2default(),...JSON.parse(localStorage.getItem(V2KEY)||'{}')}}catch(e){v2state=v2default()}
-let v2tab='home',v2cardDeck=[],v2cardIndex=0,v2cardFlipped=false,v2activeQuiz=[];
+let v2tab='home',v2cardDeck=[],v2cardIndex=0,v2cardFlipped=false,v2activeQuiz=[],v3cardDeadline=0,v3cardTimer=null;
 function v2save(){localStorage.setItem(V2KEY,JSON.stringify(v2state))}
 function v2id(id){return document.getElementById(id)}
 function v2escape(x){return esc(String(x??''))}
@@ -336,17 +339,17 @@ v2id('v2quizstart').onclick=()=>{
  v2id('v2checkquiz').onclick=()=>v3FinishQuiz(f);
  if(minutes){const tick=()=>{const el=v2id('v3clock');if(!el){clearInterval(v3quizTimer);v3quizTimer=null;return}const remaining=Math.max(0,Math.ceil((v3quizDeadline-Date.now())/1000));el.textContent='⏱ '+Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0');if(!remaining)v3FinishQuiz(f)};tick();v3quizTimer=setInterval(tick,1000)}
 };
-v2id('v2cardstart').onclick=()=>{const f=fiches.find(x=>x.id===v2id('v2cardselect').value);if(!f)return;v2cardDeck=v2Questions(f);v2cardIndex=0;v2cardFlipped=false;v2renderCard()};
+v2id('v2cardstart').onclick=()=>{if(v3cardTimer){clearInterval(v3cardTimer);v3cardTimer=null}const f=fiches.find(x=>x.id===v2id('v2cardselect').value);if(!f)return;v2cardDeck=v2Questions(f);const mode=v2id('v3cardmode').value;if(mode==='memory'){v2cardDeck.sort((a,b)=>(v2state.cards[f.id+'-'+v2Questions(f).indexOf(a)]||0)-(v2state.cards[f.id+'-'+v2Questions(f).indexOf(b)]||0))}v2cardIndex=0;v2cardFlipped=false;v3cardDeadline=mode==='fast'?Date.now()+300000:0;v2renderCard();if(v3cardDeadline){v3cardTimer=setInterval(()=>{if(Date.now()>=v3cardDeadline){clearInterval(v3cardTimer);v3cardTimer=null;v2id('v2cardarea').innerHTML='<h3>⏱ Temps écoulé !</h3>'}else{const clock=v2id('v3cardclock');if(clock)clock.textContent='⏱ '+Math.ceil((v3cardDeadline-Date.now())/1000)+' s restantes'}},1000)}};
 function v2renderCard(){
  const box=v2id('v2cardarea');if(!v2cardDeck.length){box.innerHTML='<p>Aucune carte disponible pour cette fiche.</p>';return}
  const t=v2cardDeck[v2cardIndex%v2cardDeck.length];
- box.innerHTML='<p class="v2muted">Carte '+(v2cardIndex+1)+' / '+v2cardDeck.length+'</p><div id="v2flip" class="v2flip" tabindex="0" role="button">'+v2escape(v2cardFlipped?t.a:t.q)+'</div><p class="v2muted">Clique sur la carte pour la retourner.</p><div class="v2row"><button class="secondary" data-v2rate="0">❌ À revoir</button><button class="secondary" data-v2rate="1">🟡 Presque</button><button data-v2rate="2">✅ Je connais</button></div>';
+ box.innerHTML='<p id="v3cardclock" class="v2muted"></p><p class="v2muted">Carte '+(v2cardIndex+1)+' / '+v2cardDeck.length+'</p><div id="v2flip" class="v2flip" tabindex="0" role="button">'+v2escape(v2cardFlipped?t.a:t.q)+'</div><p class="v2muted">Clique sur la carte pour la retourner.</p><div class="v2row"><button class="secondary" data-v2rate="0">❌ À revoir</button><button class="secondary" data-v2rate="1">🟡 Presque</button><button data-v2rate="2">✅ Je connais</button></div>';
  v2id('v2flip').onclick=()=>{v2cardFlipped=!v2cardFlipped;v2renderCard()};
  v2id('v2flip').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();v2id('v2flip').click()}};
- document.querySelectorAll('[data-v2rate]').forEach(b=>b.onclick=()=>{const fId=v2id('v2cardselect').value;v2state.cards[fId+'-'+v2cardIndex]=Number(b.dataset.v2rate);v2save();if(v2cardIndex===v2cardDeck.length-1){const weak=v2cardDeck.map((_,i)=>i).filter(i=>v2state.cards[fId+'-'+i]!==2);if(weak.length){v2cardDeck=weak.map(i=>v2cardDeck[i]);v2cardIndex=0;v2cardFlipped=false;v2renderCard()}else v2id('v2cardarea').innerHTML='<h3>🎉 Toutes les cartes sont maîtrisées !</h3>'}else{v2cardIndex++;v2cardFlipped=false;v2renderCard()}});
+ document.querySelectorAll('[data-v2rate]').forEach(b=>b.onclick=()=>{const fId=v2id('v2cardselect').value;v2state.cards[fId+'-'+v2cardIndex]=Number(b.dataset.v2rate);v2save();if(v2cardIndex===v2cardDeck.length-1){if(v2id('v3cardmode').value==='discover'||v2id('v3cardmode').value==='fast'){v2id('v2cardarea').innerHTML='<h3>🎉 Session terminée !</h3>';return}const weak=v2cardDeck.map((_,i)=>i).filter(i=>v2state.cards[fId+'-'+i]!==2);if(weak.length){v2cardDeck=weak.map(i=>v2cardDeck[i]);v2cardIndex=0;v2cardFlipped=false;v2renderCard()}else v2id('v2cardarea').innerHTML='<h3>🎉 Toutes les cartes sont maîtrisées !</h3>'}else{v2cardIndex++;v2cardFlipped=false;v2renderCard()}});
 }
 v2id('v2exportstats').onclick=()=>{const a=document.createElement('a');const url=URL.createObjectURL(new Blob([JSON.stringify(v2state,null,2)],{type:'application/json'}));a.href=url;a.download='progression-revision.json';a.click();URL.revokeObjectURL(url)};
-v2id('v2importstats').onchange=async e=>{try{const x=JSON.parse(await e.target.files[0].text());if(!x||!Array.isArray(x.favorites)||!Array.isArray(x.read)||!Array.isArray(x.quizResults))throw Error();if(confirm('Remplacer ta progression actuelle par cette sauvegarde ?')){v2state={...v2default(),...x};v2save();v2refresh()}}catch(e){alert('Sauvegarde invalide')}};
+v2id('v2importstats').onchange=async e=>{try{if(!e.target.files?.[0])return;const x=JSON.parse(await e.target.files[0].text());if(!x||!Array.isArray(x.favorites)||!Array.isArray(x.read)||!Array.isArray(x.quizResults))throw Error();if(confirm('Remplacer ta progression actuelle par cette sauvegarde ?')){v2state={...v2default(),...x};v2save();v2refresh()}}catch(e){alert('Sauvegarde invalide')}};
 const v2OriginalRender=render;
 render=function(){v2OriginalRender();if(v2tab==='favorites')v2filterFavorites()};
 
@@ -404,6 +407,7 @@ const v3OrigRefresh=v2refresh;v2refresh=function(){
 };
 v2refresh();
 
+if('serviceWorker' in navigator && location.protocol==='https:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
 v2show('home');
 
 </script>
