@@ -90,7 +90,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .readerbody mark{background:#ffe081;color:#332a00;border-radius:3px;padding:0 2px}
 @media(max-width:640px){.revision-section{padding:15px}.revision-intro{padding:14px}.revision-visual{grid-template-columns:1fr}.readerbody{font-size:15px}}
 @media print{.revision-section,.revision-intro,.revision-visual .diagram{break-inside:avoid;box-shadow:none}.revision-section{border:1px solid #ccc}.readerbody{max-width:none}}
-</style>
+
+/* V4 – identité visuelle et espace communauté */
+:root{--share-violet:#865dff}header{background:radial-gradient(ellipse at 78% 15%,rgba(134,93,255,.24),transparent 44%),var(--panel)}.v2tabs{gap:9px}.v2tabs button{border-radius:13px;transition:transform .16s,box-shadow .16s}.v2tabs button:hover{transform:translateY(-2px)}.share-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.share-kicker{font-size:11px;font-weight:800;letter-spacing:.15em;color:var(--accent)}.share-pill{padding:9px 13px;background:var(--accent2);border-radius:99px;font-size:12px}.share-toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:24px 0}.share-toolbar label,.share-form label{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:700}.share-toolbar select,.share-form select,.share-form input,.share-form textarea{background:var(--bg);color:var(--text);border:1px solid var(--line);padding:11px 12px;border-radius:11px;width:100%;font:inherit}.share-feed{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.share-item{background:var(--bg);border:1px solid var(--line);border-radius:17px;padding:18px;min-width:0}.share-item h3{margin:10px 0}.share-item p{overflow-wrap:anywhere}.share-badge{display:inline-block;padding:5px 9px;border-radius:99px;background:var(--accent2);font-size:12px;margin:3px 4px 3px 0}.share-create,.share-admin{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:22px;margin-top:24px}.share-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:15px 0}.share-wide{grid-column:1/-1}.share-admin{border-color:var(--accent)}.share-preview{white-space:pre-wrap;max-height:240px;overflow:auto;background:var(--bg);border-radius:10px;padding:12px}.share-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}@media(max-width:650px){.share-form{grid-template-columns:1fr}.share-wide{grid-column:auto}.share-create,.share-admin{padding:15px}}</style>
 </head>
 <body>
 <header>
@@ -101,13 +103,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   </div>
 </header>
 <main>
-<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="private">🔐 Mes fiches</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button><button data-v2tab="practice">📝 Exercices</button><button data-v2tab="account">👤 Mon compte</button><button data-v2tab="settings">⚙️ Paramètres</button></nav>
+<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="private">🔐 Mes fiches</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button><button data-v2tab="practice">📝 Exercices</button><button data-v2tab="share">🌐 Partage</button><button data-v2tab="account">👤 Mon compte</button><button data-v2tab="settings">⚙️ Paramètres</button></nav>
 <section id="v2home" class="v2panel on"><h2>👋 Prêt à réviser ?</h2><p class="v2muted">Tes fiches, tes outils et tes révisions au même endroit.</p><div class="v2grid"><div class="v2box"><strong id="v2total">0</strong>Fiches disponibles</div><div class="v2box"><strong id="v2done">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2next">—</strong>Fiches personnelles</div><div class="v2box"><strong id="v2score">—</strong>Moyenne aux quiz</div></div><h3>Continuer à réviser</h3><div id="v2recent"></div><button id="v2openlibrary">Voir toutes les fiches →</button></section>
 <section id="v2quiz" class="v2panel"><h2>🧠 Quiz interactifs</h2><p class="v2muted">Choisis une fiche, réponds aux questions et vérifie tes connaissances.</p><div class="v2row"><select id="v2quizselect" class="v2input"></select><label>Difficulté <select id="v3difficulty" class="v2input"><option value="easy">Facile</option><option value="medium">Moyen</option><option value="hard">Difficile</option><option value="mixed">Mixte</option></select></label><label>Questions <select id="v3count" class="v2input"><option>10</option><option>20</option><option>30</option></select></label><label>Durée <select id="v3minutes" class="v2input"><option value="0">Sans limite</option><option>10</option><option>20</option><option>30</option></select></label><button id="v2quizstart">Lancer mon examen</button></div><p class="v2muted">Les questions automatiques sont issues des définitions de la fiche. Si le cours ne contient pas assez de notions distinctes, le quiz sera plus court.</p><div id="v2quizarea"></div></section>
 <section id="v2cards" class="v2panel"><h2>🃏 Flashcards</h2><p class="v2muted">Retourne les cartes et indique si tu connais la réponse.</p><div class="v2row"><select id="v2cardselect" class="v2input"></select><label>Mode <select id="v3cardmode" class="v2input"><option value="discover">Découverte</option><option value="memory">Mémorisation</option><option value="fast">Rapide (5 min)</option></select></label><button id="v2cardstart">Réviser</button></div><div id="v2cardarea"></div></section>
 <section id="v2private" class="v2panel"><h2>🔐 Mes fiches personnelles</h2><p class="v2muted">Pour le moment, ces fiches sont enregistrées <strong>sur cet appareil uniquement</strong>. Ce n'est pas encore un espace privé sécurisé avec compte : n'y mets pas d'informations sensibles.</p><div class="v2row"><button id="v2newprivate">＋ Créer une fiche personnelle</button><button class="secondary" id="v2privatelibrary">Ouvrir la bibliothèque</button></div><div id="v2privatelist"></div></section>
 <section id="v2practice" class="v2panel"><h2>📝 Mode exercices</h2><p class="v2muted">Entraîne-toi sur les notions de tes fiches. Tu peux révéler un indice et comparer ta réponse avec le cours.</p><div class="v2row"><select id="v3practiceselect" class="v2input"></select><button id="v3practicestart">Commencer</button></div><div id="v3practicearea"></div></section>
-<section id="v2account" class="v2panel"><h2>👤 Mon compte</h2><p id="v3authstatus" class="v2muted">Chargement…</p><div id="v3authform"><div class="v2row"><input class="v2input" type="email" id="v3email" placeholder="Adresse e-mail" autocomplete="email"><input class="v2input" type="password" id="v3password" placeholder="Mot de passe" autocomplete="current-password" minlength="8"></div><div class="v2row"><button id="v3signup">Créer un compte</button><button id="v3signin" class="secondary">Se connecter</button><button id="v3reset" class="secondary">Mot de passe oublié</button></div></div><button id="v3signout" class="secondary" hidden>Se déconnecter</button><p class="v2muted">La connexion sera disponible après configuration du service d'authentification sécurisé. En attendant, les fiches personnelles restent uniquement sur cet appareil.</p></section>
+<section id="v2share" class="v2panel"><div class="share-head"><div><span class="share-kicker">LA COMMUNAUTÉ</span><h2>🌐 Fiches partagées</h2><p class="v2muted">Découvre les fiches validées par la modération. Partage tes cours avec les autres élèves.</p></div><span class="share-pill">🛡️ Modération active</span></div>
+<div class="share-toolbar"><label>Niveau<select id="shareLevel"><option value="">Tous les niveaux</option><option>Seconde</option><option>Première</option><option>Terminale</option></select></label><label>Filière<select id="shareTrack"><option value="">Toutes les filières</option><option>Générale</option><option>STI2D</option></select></label><button id="shareRefresh" class="secondary">↻ Actualiser</button></div>
+<div id="shareFeed" class="share-feed"><p class="v2muted">Chargement des fiches…</p></div>
+<div class="share-create"><h3>✍️ Proposer une fiche</h3><p class="v2muted">Les fiches sont vérifiées avant leur publication. Connecte-toi pour proposer une fiche.</p><div class="share-form"><label>Titre<input id="shareTitle" maxlength="160" placeholder="Ex. Les suites numériques"></label><label>Matière<input id="shareSubject" maxlength="80" placeholder="Mathématiques"></label><label>Niveau<select id="shareSubmitLevel"><option>Seconde</option><option>Première</option><option>Terminale</option></select></label><label>Filière<select id="shareSubmitTrack"><option>Générale</option><option>STI2D</option></select></label><label class="share-wide">Contenu de la fiche<textarea id="shareBody" rows="9" maxlength="40000" placeholder="Cours, définitions, formules, exemples…"></textarea></label></div><button id="shareSubmit">📤 Envoyer à la modération</button><p id="shareStatus" class="v2muted" role="status"></p></div>
+<div id="shareAdmin" class="share-admin" hidden><h3>🛡️ Espace modération</h3><p class="v2muted">Valide ou refuse les fiches proposées par les élèves.</p><div id="shareQueue"></div></div>
+<div class="share-create"><h3>🎓 Mon profil scolaire</h3><div class="share-form"><label>Pseudo<input id="shareNickname" maxlength="40" placeholder="Ton pseudo"></label><label>Niveau<select id="shareProfileLevel"><option>Seconde</option><option>Première</option><option>Terminale</option></select></label><label>Filière<select id="shareProfileTrack"><option>Générale</option><option>STI2D</option></select></label></div><button id="shareSaveProfile" class="secondary">Enregistrer mon profil</button><p id="shareProfileStatus" class="v2muted" role="status"></p></div></section><section id="v2account" class="v2panel"><h2>👤 Mon compte</h2><p id="v3authstatus" class="v2muted">Chargement…</p><div id="v3authform"><div class="v2row"><input class="v2input" type="email" id="v3email" placeholder="Adresse e-mail" autocomplete="email"><input class="v2input" type="password" id="v3password" placeholder="Mot de passe" autocomplete="current-password" minlength="8"></div><div class="v2row"><button id="v3signup">Créer un compte</button><button id="v3signin" class="secondary">Se connecter</button><button id="v3reset" class="secondary">Mot de passe oublié</button></div></div><button id="v3signout" class="secondary" hidden>Se déconnecter</button><p class="v2muted">La connexion sera disponible après configuration du service d'authentification sécurisé. En attendant, les fiches personnelles restent uniquement sur cet appareil.</p></section>
 <section id="v2settings" class="v2panel"><h2>⚙️ Personnaliser mon espace</h2><p class="v2muted">Tes choix sont conservés dans ce navigateur.</p><div class="v2grid"><div class="v2box"><h3>🎨 Couleur principale</h3><div class="v2row" id="v2colors"><button data-color="#8b5cf6" aria-label="Violet">🟣</button><button data-color="#2563eb" aria-label="Bleu">🔵</button><button data-color="#dc2626" aria-label="Rouge">🔴</button><button data-color="#059669" aria-label="Vert">🟢</button><button data-color="#ea580c" aria-label="Orange">🟠</button></div><label>Ma couleur <input id="v2color" type="color" value="#8b5cf6"></label></div><div class="v2box"><h3>🖥️ Affichage</h3><label>Thème <select id="v2theme" class="v2input"><option value="dark">Sombre</option><option value="light">Clair</option></select></label><p><label>Taille du texte <select id="v2font" class="v2input"><option value="14">Compact</option><option value="16">Normal</option><option value="18">Grand</option><option value="20">Très grand</option></select></label></p><label><input id="v2motion" type="checkbox"> Réduire les animations</label></div><div class="v2box"><h3>📚 Présentation</h3><label>Fiches <select id="v2view" class="v2input"><option value="grid">Grille</option><option value="list">Liste</option></select></label><p><label>Angles <select id="v2round" class="v2input"><option value="rounded">Arrondis</option><option value="square">Carrés</option></select></label></p><button class="secondary" id="v2resetsettings">Réinitialiser l'apparence</button></div></div><p class="v2muted">Les comptes publics et les fiches privées synchronisées seront ajoutés lors de la phase dédiée à l'authentification.</p></section>
 <section id="v2stats" class="v2panel"><h2>📊 Ma progression</h2><div class="v2grid"><div class="v2box"><strong id="v2statread">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2statquiz">0</strong>Quiz réalisés</div><div class="v2box"><strong id="v2statavg">—</strong>Score moyen</div><div class="v2box"><strong id="v2stattime">0 min</strong>Temps de révision estimé</div></div><h3>Progression</h3><div class="v2progress"><div id="v2bar" style="width:0"></div></div><p id="v2progresslabel" class="v2muted"></p><p class="v2muted">Données enregistrées dans ce navigateur. Utilise la sauvegarde pour les transférer.</p><button id="v2exportstats" class="secondary">↓ Exporter ma progression</button><label style="display:inline-block;margin-left:8px;cursor:pointer">↑ Importer ma progression <input type="file" id="v2importstats" accept="application/json" style="max-width:180px"></label></section>
   <div class="toolbar" id="v2librarytoolbar">
@@ -490,6 +497,7 @@ function v3SetUser(user){
  v2id('v3authstatus').textContent=user?'Connecté : '+user.email:'Connecte-toi pour accéder à ton compte.';
  v2id('v3authform').hidden=!!user;
  v2id('v3signout').hidden=!user;
+ shareRefreshUser().catch(console.error);
 }
 async function v3AuthAction(action){
  if(!v3supabase)return;
@@ -508,7 +516,62 @@ v2id('v3reset').onclick=()=>v3AuthAction('reset');
 v2id('v3signout').onclick=async()=>{if(v3supabase)await v3supabase.auth.signOut()};
 v3InitAuth();
 
+/* V4 – partage avec validation serveur (RLS). Aucun droit admin n'est attribué depuis le navigateur. */
+let shareIsAdmin=false;
+const shareEl=id=>document.getElementById(id);
+const shareMessage=(id,msg)=>{shareEl(id).textContent=msg};
+function shareEscape(v){return esc(v||'')}
+async function shareLoad(){
+ if(!v3supabase){shareMessage('shareFeed','Connecte le site à Supabase pour voir les fiches.');return}
+ const level=shareEl('shareLevel').value,track=shareEl('shareTrack').value;
+ let query=v3supabase.from('shared_sheets').select('id,title,subject,school_level,school_track,summary,body,created_at,status').eq('status','approved').order('created_at',{ascending:false}).limit(60);
+ if(level)query=query.eq('school_level',level);
+ if(track)query=query.eq('school_track',track);
+ const {data,error}=await query;
+ if(error){shareMessage('shareFeed','Impossible de charger les fiches : '+error.message);return}
+ shareEl('shareFeed').innerHTML=(data||[]).length?data.map(x=>'<article class="share-item"><span class="share-badge">📚 '+shareEscape(x.school_level)+'</span><span class="share-badge">🎓 '+shareEscape(x.school_track)+'</span><h3>'+shareEscape(x.title)+'</h3><p class="v2muted">'+shareEscape(x.subject)+'</p><p>'+shareEscape((x.body||'').slice(0,160))+'…</p><button class="secondary" data-share-read="'+shareEscape(x.id)+'">📖 Lire la fiche</button></article>').join(''):'<p class="v2muted">Aucune fiche publiée dans cette catégorie pour le moment.</p>';
+ shareEl('shareFeed').querySelectorAll('[data-share-read]').forEach(b=>b.onclick=()=>{const x=data.find(d=>d.id===b.dataset.shareRead);if(!x)return;const modal=document.createElement('dialog');modal.className='share-dialog';modal.style.cssText='background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:20px;padding:24px;width:min(760px,95vw);max-height:85vh;overflow:auto';const title=document.createElement('h2');title.textContent=x.title;const body=document.createElement('div');body.className='readerbody';body.innerHTML=revisionFormat({title:x.title,subject:x.subject,level:x.school_level,body:x.body},'');const close=document.createElement('button');close.textContent='Fermer';close.onclick=()=>modal.close();modal.append(close,title,body);document.body.append(modal);modal.addEventListener('close',()=>modal.remove());modal.showModal()});
+}
+async function shareSubmit(){
+ if(!v3user){shareMessage('shareStatus','🔐 Connecte-toi dans Mon compte avant de proposer une fiche.');return}
+ const title=shareEl('shareTitle').value.trim(),subject=shareEl('shareSubject').value.trim(),body=shareEl('shareBody').value.trim();
+ if(title.length<3||subject.length<2||body.length<20){shareMessage('shareStatus','Ajoute un titre, une matière et au moins 20 caractères de cours.');return}
+ const {error}=await v3supabase.from('shared_sheets').insert({author_id:v3user.id,title,subject,body,school_level:shareEl('shareSubmitLevel').value,school_track:shareEl('shareSubmitTrack').value});
+ shareMessage('shareStatus',error?'Erreur : '+error.message:'✅ Fiche envoyée ! Elle sera visible après validation par un administrateur.');
+ if(!error)shareEl('shareBody').value='';
+}
+async function shareRefreshUser(){
+ if(!v3supabase)return;
+ shareIsAdmin=false;shareEl('shareAdmin').hidden=true;
+ if(!v3user)return;
+ const {data:role}=await v3supabase.from('admin_roles').select('user_id').eq('user_id',v3user.id).maybeSingle();
+ shareIsAdmin=!!role;shareEl('shareAdmin').hidden=!shareIsAdmin;
+ const {data:p}=await v3supabase.from('profiles').select('*').eq('id',v3user.id).maybeSingle();
+ if(p){shareEl('shareNickname').value=p.display_name||'';shareEl('shareProfileLevel').value=p.school_level;shareEl('shareProfileTrack').value=p.school_track;shareEl('shareSubmitLevel').value=p.school_level;shareEl('shareSubmitTrack').value=p.school_track}
+ if(shareIsAdmin)await shareLoadQueue();
+}
+async function shareLoadQueue(){
+ if(!shareIsAdmin)return;
+ const {data,error}=await v3supabase.from('shared_sheets').select('id,title,subject,body,school_level,school_track,created_at').eq('status','pending').order('created_at',{ascending:true}).limit(100);
+ if(error){shareMessage('shareQueue',error.message);return}
+ shareEl('shareQueue').innerHTML=(data||[]).length?data.map(x=>'<article class="share-item" style="margin:12px 0"><h3>'+shareEscape(x.title)+'</h3><p>'+shareEscape(x.subject)+' · '+shareEscape(x.school_level)+' · '+shareEscape(x.school_track)+'</p><div class="share-preview">'+shareEscape(x.body)+'</div><div class="share-actions"><button data-share-approve="'+shareEscape(x.id)+'">✓ Approuver</button><button class="secondary" data-share-reject="'+shareEscape(x.id)+'">✕ Refuser</button></div></article>').join(''):'<p class="v2muted">Aucune fiche en attente 🎉</p>';
+ for(const status of ['approve','reject'])shareEl('shareQueue').querySelectorAll('[data-share-'+status+']').forEach(b=>b.onclick=async()=>{const approved=status==='approve';if(!approved&&!confirm('Refuser cette fiche ?'))return;const {error}=await v3supabase.from('shared_sheets').update({status:approved?'approved':'rejected',updated_at:new Date().toISOString()}).eq('id',b.dataset['share'+(approved?'Approve':'Reject')]);if(error)alert(error.message);else{await shareLoadQueue();await shareLoad()}});
+}
+async function shareSaveProfile(){
+ if(!v3user){shareMessage('shareProfileStatus','Connecte-toi pour enregistrer ton profil.');return}
+ const name=shareEl('shareNickname').value.trim().slice(0,40)||'Élève';
+ const {error}=await v3supabase.from('profiles').upsert({id:v3user.id,display_name:name,school_level:shareEl('shareProfileLevel').value,school_track:shareEl('shareProfileTrack').value},{onConflict:'id'});
+ shareMessage('shareProfileStatus',error?'Erreur : '+error.message:'✅ Profil enregistré !');
+}
+shareEl('shareRefresh').onclick=shareLoad;
+shareEl('shareLevel').onchange=shareLoad;shareEl('shareTrack').onchange=shareLoad;
+shareEl('shareSubmit').onclick=shareSubmit;
+shareEl('shareSaveProfile').onclick=shareSaveProfile;
+
+
+
 v2show('home');
+setTimeout(()=>shareLoad().catch(console.error),1000);
 
 </script>
 <style>
