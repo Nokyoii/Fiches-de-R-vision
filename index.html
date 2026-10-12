@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#171a35">
 <meta name="description" content="Fiches de révision, quiz, flashcards et exercices pour le lycée.">
 <link rel="manifest" href="./manifest.webmanifest">
+<script src="./supabase-config.js" defer></script>
 <title>Mes fiches de révision</title>
 <style>
 :root{--bg:#f5f6fa;--panel:#fff;--text:#172033;--muted:#667085;--line:#e5e7ef;--accent:#635bff;--accent2:#eeeefe;--shadow:0 10px 30px rgba(23,32,51,.07)}
@@ -77,12 +78,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   </div>
 </header>
 <main>
-<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="private">🔐 Mes fiches</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button><button data-v2tab="practice">📝 Exercices</button><button data-v2tab="settings">⚙️ Paramètres</button></nav>
+<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="private">🔐 Mes fiches</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button><button data-v2tab="practice">📝 Exercices</button><button data-v2tab="account">👤 Mon compte</button><button data-v2tab="settings">⚙️ Paramètres</button></nav>
 <section id="v2home" class="v2panel on"><h2>👋 Prêt à réviser ?</h2><p class="v2muted">Tes fiches, tes outils et tes révisions au même endroit.</p><div class="v2grid"><div class="v2box"><strong id="v2total">0</strong>Fiches disponibles</div><div class="v2box"><strong id="v2done">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2next">—</strong>Fiches personnelles</div><div class="v2box"><strong id="v2score">—</strong>Moyenne aux quiz</div></div><h3>Continuer à réviser</h3><div id="v2recent"></div><button id="v2openlibrary">Voir toutes les fiches →</button></section>
 <section id="v2quiz" class="v2panel"><h2>🧠 Quiz interactifs</h2><p class="v2muted">Choisis une fiche, réponds aux questions et vérifie tes connaissances.</p><div class="v2row"><select id="v2quizselect" class="v2input"></select><label>Difficulté <select id="v3difficulty" class="v2input"><option value="easy">Facile</option><option value="medium">Moyen</option><option value="hard">Difficile</option><option value="mixed">Mixte</option></select></label><label>Questions <select id="v3count" class="v2input"><option>10</option><option>20</option><option>30</option></select></label><label>Durée <select id="v3minutes" class="v2input"><option value="0">Sans limite</option><option>10</option><option>20</option><option>30</option></select></label><button id="v2quizstart">Lancer mon examen</button></div><p class="v2muted">Les questions automatiques sont issues des définitions de la fiche. Si le cours ne contient pas assez de notions distinctes, le quiz sera plus court.</p><div id="v2quizarea"></div></section>
 <section id="v2cards" class="v2panel"><h2>🃏 Flashcards</h2><p class="v2muted">Retourne les cartes et indique si tu connais la réponse.</p><div class="v2row"><select id="v2cardselect" class="v2input"></select><label>Mode <select id="v3cardmode" class="v2input"><option value="discover">Découverte</option><option value="memory">Mémorisation</option><option value="fast">Rapide (5 min)</option></select></label><button id="v2cardstart">Réviser</button></div><div id="v2cardarea"></div></section>
 <section id="v2private" class="v2panel"><h2>🔐 Mes fiches personnelles</h2><p class="v2muted">Pour le moment, ces fiches sont enregistrées <strong>sur cet appareil uniquement</strong>. Ce n'est pas encore un espace privé sécurisé avec compte : n'y mets pas d'informations sensibles.</p><div class="v2row"><button id="v2newprivate">＋ Créer une fiche personnelle</button><button class="secondary" id="v2privatelibrary">Ouvrir la bibliothèque</button></div><div id="v2privatelist"></div></section>
 <section id="v2practice" class="v2panel"><h2>📝 Mode exercices</h2><p class="v2muted">Entraîne-toi sur les notions de tes fiches. Tu peux révéler un indice et comparer ta réponse avec le cours.</p><div class="v2row"><select id="v3practiceselect" class="v2input"></select><button id="v3practicestart">Commencer</button></div><div id="v3practicearea"></div></section>
+<section id="v2account" class="v2panel"><h2>👤 Mon compte</h2><p id="v3authstatus" class="v2muted">Chargement…</p><div id="v3authform"><div class="v2row"><input class="v2input" type="email" id="v3email" placeholder="Adresse e-mail" autocomplete="email"><input class="v2input" type="password" id="v3password" placeholder="Mot de passe" autocomplete="current-password" minlength="8"></div><div class="v2row"><button id="v3signup">Créer un compte</button><button id="v3signin" class="secondary">Se connecter</button><button id="v3reset" class="secondary">Mot de passe oublié</button></div></div><button id="v3signout" class="secondary" hidden>Se déconnecter</button><p class="v2muted">La connexion sera disponible après configuration du service d'authentification sécurisé. En attendant, les fiches personnelles restent uniquement sur cet appareil.</p></section>
 <section id="v2settings" class="v2panel"><h2>⚙️ Personnaliser mon espace</h2><p class="v2muted">Tes choix sont conservés dans ce navigateur.</p><div class="v2grid"><div class="v2box"><h3>🎨 Couleur principale</h3><div class="v2row" id="v2colors"><button data-color="#8b5cf6" aria-label="Violet">🟣</button><button data-color="#2563eb" aria-label="Bleu">🔵</button><button data-color="#dc2626" aria-label="Rouge">🔴</button><button data-color="#059669" aria-label="Vert">🟢</button><button data-color="#ea580c" aria-label="Orange">🟠</button></div><label>Ma couleur <input id="v2color" type="color" value="#8b5cf6"></label></div><div class="v2box"><h3>🖥️ Affichage</h3><label>Thème <select id="v2theme" class="v2input"><option value="dark">Sombre</option><option value="light">Clair</option></select></label><p><label>Taille du texte <select id="v2font" class="v2input"><option value="14">Compact</option><option value="16">Normal</option><option value="18">Grand</option><option value="20">Très grand</option></select></label></p><label><input id="v2motion" type="checkbox"> Réduire les animations</label></div><div class="v2box"><h3>📚 Présentation</h3><label>Fiches <select id="v2view" class="v2input"><option value="grid">Grille</option><option value="list">Liste</option></select></label><p><label>Angles <select id="v2round" class="v2input"><option value="rounded">Arrondis</option><option value="square">Carrés</option></select></label></p><button class="secondary" id="v2resetsettings">Réinitialiser l'apparence</button></div></div><p class="v2muted">Les comptes publics et les fiches privées synchronisées seront ajoutés lors de la phase dédiée à l'authentification.</p></section>
 <section id="v2stats" class="v2panel"><h2>📊 Ma progression</h2><div class="v2grid"><div class="v2box"><strong id="v2statread">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2statquiz">0</strong>Quiz réalisés</div><div class="v2box"><strong id="v2statavg">—</strong>Score moyen</div><div class="v2box"><strong id="v2stattime">0 min</strong>Temps de révision estimé</div></div><h3>Progression</h3><div class="v2progress"><div id="v2bar" style="width:0"></div></div><p id="v2progresslabel" class="v2muted"></p><p class="v2muted">Données enregistrées dans ce navigateur. Utilise la sauvegarde pour les transférer.</p><button id="v2exportstats" class="secondary">↓ Exporter ma progression</button><label style="display:inline-block;margin-left:8px;cursor:pointer">↑ Importer ma progression <input type="file" id="v2importstats" accept="application/json" style="max-width:180px"></label></section>
   <div class="toolbar" id="v2librarytoolbar">
@@ -408,6 +410,43 @@ const v3OrigRefresh=v2refresh;v2refresh=function(){
 v2refresh();
 
 if('serviceWorker' in navigator && location.protocol==='https:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+
+/* V2.6 — authentification optionnelle, désactivée tant que Supabase n'est pas configuré.
+   La clé publique (publishable/anon) peut être visible dans le navigateur ; jamais de service_role. */
+let v3supabase=null,v3user=null;
+async function v3InitAuth(){
+ const status=v2id('v3authstatus'),cfg=window.REVISION_SUPABASE_CONFIG;
+ if(!cfg||!/^https:\/\//.test(cfg.url||'')||!cfg.anonKey){status.textContent='🔒 Création de comptes pas encore activée : configuration Supabase nécessaire.';v2id('v3authform').hidden=true;return}
+ try{
+  const mod=await import('https://esm.sh/@supabase/supabase-js@2');
+  v3supabase=mod.createClient(cfg.url,cfg.anonKey);
+  const {data:{user}}=await v3supabase.auth.getUser();v3SetUser(user);
+  v3supabase.auth.onAuthStateChange((_event,session)=>v3SetUser(session?.user||null));
+ }catch(e){status.textContent='Connexion indisponible pour le moment.';v2id('v3authform').hidden=true}
+}
+function v3SetUser(user){
+ v3user=user;
+ v2id('v3authstatus').textContent=user?'Connecté : '+user.email:'Connecte-toi pour accéder à ton compte.';
+ v2id('v3authform').hidden=!!user;
+ v2id('v3signout').hidden=!user;
+}
+async function v3AuthAction(action){
+ if(!v3supabase)return;
+ const email=v2id('v3email').value.trim(),password=v2id('v3password').value;
+ if(!email){v2id('v3authstatus').textContent='Saisis ton adresse e-mail.';return}
+ if(action!=='reset'&&password.length<8){v2id('v3authstatus').textContent='Le mot de passe doit contenir au moins 8 caractères.';return}
+ let result;
+ if(action==='signup')result=await v3supabase.auth.signUp({email,password});
+ if(action==='signin')result=await v3supabase.auth.signInWithPassword({email,password});
+ if(action==='reset')result=await v3supabase.auth.resetPasswordForEmail(email);
+ v2id('v3authstatus').textContent=result.error?result.error.message:(action==='signup'?'Vérifie ta boîte mail pour confirmer ton compte.':action==='reset'?'Consulte tes e-mails pour réinitialiser ton mot de passe.':'Connexion effectuée.');
+}
+v2id('v3signup').onclick=()=>v3AuthAction('signup');
+v2id('v3signin').onclick=()=>v3AuthAction('signin');
+v2id('v3reset').onclick=()=>v3AuthAction('reset');
+v2id('v3signout').onclick=async()=>{if(v3supabase)await v3supabase.auth.signOut()};
+v3InitAuth();
+
 v2show('home');
 
 </script>
