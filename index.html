@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171a35">
+<meta name="description" content="Fiches de révision, quiz, flashcards et exercices pour le lycée.">
+<link rel="manifest" href="./manifest.webmanifest">
+<script src="./supabase-config.js"></script>
 <title>Mes fiches de révision</title>
 <style>
 :root{--bg:#f5f6fa;--panel:#fff;--text:#172033;--muted:#667085;--line:#e5e7ef;--accent:#635bff;--accent2:#eeeefe;--shadow:0 10px 30px rgba(23,32,51,.07)}
@@ -26,6 +30,43 @@ button{border:0;border-radius:12px;padding:12px 16px;background:var(--accent);co
 .notice{font-size:12px;color:var(--muted);margin-top:18px;padding:12px;border-top:1px solid var(--line)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 30px}
 @media(max-width:760px){.layout{grid-template-columns:1fr}.sidebar{padding:12px}.cats{display:flex;flex-wrap:wrap}.cat{width:auto;gap:10px}.stats{gap:8px}.stat{padding:12px}.toolbar{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.content{padding:16px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.content-head{flex-direction:column}}
+
+/* V2 enhancements */
+:root{--v2green:#10b981}
+body{transition:background .2s,color .2s}
+.v2tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.v2tabs button{background:var(--panel);border:1px solid var(--line);color:var(--text);padding:10px 13px}.v2tabs button.on{background:var(--accent);color:#fff}
+.v2panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:var(--shadow)}.v2panel.on{display:block}
+.v2grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}.v2box{background:var(--bg);padding:18px;border-radius:14px;border:1px solid var(--line)}.v2box strong{font-size:25px;display:block}.v2muted{color:var(--muted);font-size:14px}.v2row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}.v2input{padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;max-width:100%}.v2progress{height:12px;background:var(--line);border-radius:20px;overflow:hidden}.v2progress>div{height:100%;background:var(--accent);transition:width .3s}.v2question{padding:15px;background:var(--bg);border:1px solid var(--line);border-radius:12px;margin:12px 0}.v2question label{display:block;margin:7px 0;cursor:pointer}.v2flip{min-height:155px;display:grid;place-items:center;text-align:center;padding:24px;border-radius:15px;background:var(--accent2);font-size:21px;font-weight:700;cursor:pointer;border:2px dashed var(--accent)}.v2chip{padding:5px 9px;border-radius:99px;background:var(--accent2);color:var(--accent);font-size:12px;font-weight:700}
+body.focus header,body.focus .toolbar,body.focus .stats,body.focus .sidebar,body.focus footer,body.focus .v2tabs,body.focus .formpanel{display:none!important}body.focus main{margin:10px auto}body.focus .layout{display:block}body.focus .content{max-width:850px;margin:auto}body.focus .readerbody{font-size:19px;line-height:1.9}
+@media print{.v2tabs,.v2panel,.v2extras{display:none!important}}
+
+/* V2.1 interface */
+:root{--v2brand:#8b5cf6;--v2font:16px}
+body{font-size:var(--v2font)}
+header{background:linear-gradient(125deg,#10111d,#26203f 65%,var(--v2brand));padding-bottom:74px}
+header .brand{font-size:13px;letter-spacing:.16em}
+main{max-width:1240px}
+.v2tabs{position:relative;z-index:2;gap:8px;padding:9px;background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.v2tabs button{border:0;flex:1 1 auto;white-space:nowrap}
+.v2panel{border-radius:22px}
+.v2box{transition:transform .2s,box-shadow .2s}
+.v2box:hover{box-shadow:var(--shadow)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.v2list .cards{grid-template-columns:1fr}
+.v2list .card{min-height:120px}
+.v2square .v2panel,.v2square .v2box,.v2square .card,.v2square .content,.v2square .sidebar,.v2square button,.v2square .v2tabs{border-radius:4px!important}
+.v2nomotion *, .v2nomotion *::before,.v2nomotion *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+#v2colors button{padding:9px 12px;background:var(--bg);border:1px solid var(--line)}
+#v2settings .v2box h3{margin-top:0}
+@media(max-width:760px){header{padding:23px 16px 60px}main{padding:0 12px}.v2tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.v2tabs button{font-size:12px;padding:10px 4px;white-space:normal}.v2panel{padding:16px}.v2grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v2box{padding:12px}.v2box strong{font-size:20px}}
+@media(max-width:380px){.v2grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* V2.5 */
+#v2librarytoolbar{grid-template-columns:minmax(0,1fr) 150px 170px auto}
+#v3subjectstats .v2box{margin:10px 0}
+#v3practicearea textarea{max-width:100%}
+@media(max-width:850px){#v2librarytoolbar{grid-template-columns:1fr 1fr}#v2librarytoolbar #search{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -37,11 +78,20 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 30px}
   </div>
 </header>
 <main>
-  <div class="toolbar">
-    <input id="search" class="search" type="search" placeholder="🔎  Rechercher une fiche, une date, une notion…" aria-label="Rechercher une fiche">
+<nav class="v2tabs" aria-label="Navigation"><button class="on" data-v2tab="home">🏠 Accueil</button><button data-v2tab="library">📚 Bibliothèque</button><button data-v2tab="quiz">🧠 Quiz</button><button data-v2tab="cards">🃏 Flashcards</button><button data-v2tab="private">🔐 Mes fiches</button><button data-v2tab="stats">📊 Progression</button><button data-v2tab="favorites">⭐ Favoris</button><button data-v2tab="practice">📝 Exercices</button><button data-v2tab="account">👤 Mon compte</button><button data-v2tab="settings">⚙️ Paramètres</button></nav>
+<section id="v2home" class="v2panel on"><h2>👋 Prêt à réviser ?</h2><p class="v2muted">Tes fiches, tes outils et tes révisions au même endroit.</p><div class="v2grid"><div class="v2box"><strong id="v2total">0</strong>Fiches disponibles</div><div class="v2box"><strong id="v2done">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2next">—</strong>Fiches personnelles</div><div class="v2box"><strong id="v2score">—</strong>Moyenne aux quiz</div></div><h3>Continuer à réviser</h3><div id="v2recent"></div><button id="v2openlibrary">Voir toutes les fiches →</button></section>
+<section id="v2quiz" class="v2panel"><h2>🧠 Quiz interactifs</h2><p class="v2muted">Choisis une fiche, réponds aux questions et vérifie tes connaissances.</p><div class="v2row"><select id="v2quizselect" class="v2input"></select><label>Difficulté <select id="v3difficulty" class="v2input"><option value="easy">Facile</option><option value="medium">Moyen</option><option value="hard">Difficile</option><option value="mixed">Mixte</option></select></label><label>Questions <select id="v3count" class="v2input"><option>10</option><option>20</option><option>30</option></select></label><label>Durée <select id="v3minutes" class="v2input"><option value="0">Sans limite</option><option>10</option><option>20</option><option>30</option></select></label><button id="v2quizstart">Lancer mon examen</button></div><p class="v2muted">Les questions automatiques sont issues des définitions de la fiche. Si le cours ne contient pas assez de notions distinctes, le quiz sera plus court.</p><div id="v2quizarea"></div></section>
+<section id="v2cards" class="v2panel"><h2>🃏 Flashcards</h2><p class="v2muted">Retourne les cartes et indique si tu connais la réponse.</p><div class="v2row"><select id="v2cardselect" class="v2input"></select><label>Mode <select id="v3cardmode" class="v2input"><option value="discover">Découverte</option><option value="memory">Mémorisation</option><option value="fast">Rapide (5 min)</option></select></label><button id="v2cardstart">Réviser</button></div><div id="v2cardarea"></div></section>
+<section id="v2private" class="v2panel"><h2>🔐 Mes fiches personnelles</h2><p class="v2muted">Pour le moment, ces fiches sont enregistrées <strong>sur cet appareil uniquement</strong>. Ce n'est pas encore un espace privé sécurisé avec compte : n'y mets pas d'informations sensibles.</p><div class="v2row"><button id="v2newprivate">＋ Créer une fiche personnelle</button><button class="secondary" id="v2privatelibrary">Ouvrir la bibliothèque</button></div><div id="v2privatelist"></div></section>
+<section id="v2practice" class="v2panel"><h2>📝 Mode exercices</h2><p class="v2muted">Entraîne-toi sur les notions de tes fiches. Tu peux révéler un indice et comparer ta réponse avec le cours.</p><div class="v2row"><select id="v3practiceselect" class="v2input"></select><button id="v3practicestart">Commencer</button></div><div id="v3practicearea"></div></section>
+<section id="v2account" class="v2panel"><h2>👤 Mon compte</h2><p id="v3authstatus" class="v2muted">Chargement…</p><div id="v3authform"><div class="v2row"><input class="v2input" type="email" id="v3email" placeholder="Adresse e-mail" autocomplete="email"><input class="v2input" type="password" id="v3password" placeholder="Mot de passe" autocomplete="current-password" minlength="8"></div><div class="v2row"><button id="v3signup">Créer un compte</button><button id="v3signin" class="secondary">Se connecter</button><button id="v3reset" class="secondary">Mot de passe oublié</button></div></div><button id="v3signout" class="secondary" hidden>Se déconnecter</button><p class="v2muted">La connexion sera disponible après configuration du service d'authentification sécurisé. En attendant, les fiches personnelles restent uniquement sur cet appareil.</p></section>
+<section id="v2settings" class="v2panel"><h2>⚙️ Personnaliser mon espace</h2><p class="v2muted">Tes choix sont conservés dans ce navigateur.</p><div class="v2grid"><div class="v2box"><h3>🎨 Couleur principale</h3><div class="v2row" id="v2colors"><button data-color="#8b5cf6" aria-label="Violet">🟣</button><button data-color="#2563eb" aria-label="Bleu">🔵</button><button data-color="#dc2626" aria-label="Rouge">🔴</button><button data-color="#059669" aria-label="Vert">🟢</button><button data-color="#ea580c" aria-label="Orange">🟠</button></div><label>Ma couleur <input id="v2color" type="color" value="#8b5cf6"></label></div><div class="v2box"><h3>🖥️ Affichage</h3><label>Thème <select id="v2theme" class="v2input"><option value="dark">Sombre</option><option value="light">Clair</option></select></label><p><label>Taille du texte <select id="v2font" class="v2input"><option value="14">Compact</option><option value="16">Normal</option><option value="18">Grand</option><option value="20">Très grand</option></select></label></p><label><input id="v2motion" type="checkbox"> Réduire les animations</label></div><div class="v2box"><h3>📚 Présentation</h3><label>Fiches <select id="v2view" class="v2input"><option value="grid">Grille</option><option value="list">Liste</option></select></label><p><label>Angles <select id="v2round" class="v2input"><option value="rounded">Arrondis</option><option value="square">Carrés</option></select></label></p><button class="secondary" id="v2resetsettings">Réinitialiser l'apparence</button></div></div><p class="v2muted">Les comptes publics et les fiches privées synchronisées seront ajoutés lors de la phase dédiée à l'authentification.</p></section>
+<section id="v2stats" class="v2panel"><h2>📊 Ma progression</h2><div class="v2grid"><div class="v2box"><strong id="v2statread">0</strong>Fiches étudiées</div><div class="v2box"><strong id="v2statquiz">0</strong>Quiz réalisés</div><div class="v2box"><strong id="v2statavg">—</strong>Score moyen</div><div class="v2box"><strong id="v2stattime">0 min</strong>Temps de révision estimé</div></div><h3>Progression</h3><div class="v2progress"><div id="v2bar" style="width:0"></div></div><p id="v2progresslabel" class="v2muted"></p><p class="v2muted">Données enregistrées dans ce navigateur. Utilise la sauvegarde pour les transférer.</p><button id="v2exportstats" class="secondary">↓ Exporter ma progression</button><label style="display:inline-block;margin-left:8px;cursor:pointer">↑ Importer ma progression <input type="file" id="v2importstats" accept="application/json" style="max-width:180px"></label></section>
+  <div class="toolbar" id="v2librarytoolbar">
+    <input id="search" class="search" type="search" placeholder="🔎  Rechercher un mot, une formule, une notion…" aria-label="Rechercher une fiche"><select id="v3level" class="v2input" aria-label="Filtrer par niveau"><option value="">Tous les niveaux</option></select><select id="v3topic" class="v2input" aria-label="Filtrer par chapitre"><option value="">Tous les chapitres</option></select>
     <button id="newBtn">＋ Ajouter une fiche</button>
   </div>
-  <div class="stats">
+  <div class="stats" id="v2librarystats">
     <div class="stat"><strong id="totalStat">1</strong><span>Fiches enregistrées</span></div>
     <div class="stat"><strong id="subjectStat">1</strong><span>Matières</span></div>
     <div class="stat"><strong id="visibleStat">1</strong><span>Résultats affichés</span></div>
@@ -60,7 +110,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 30px}
       <div class="formactions"><button type="button" class="secondary" id="cancelBtn">Annuler</button><button type="submit">Enregistrer la fiche</button></div>
     </form>
   </section>
-  <div class="layout">
+  <div class="layout" id="v2librarylayout">
     <aside class="sidebar">
       <div class="section-label">Catégories</div>
       <div id="categories" class="cats"></div>
@@ -75,7 +125,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 20px 30px}
         <div id="cards" class="cards"></div>
       </div>
       <div id="reader" class="reader">
-        <div class="readerbar"><button class="secondary" id="backBtn">← Retour aux fiches</button><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="editBtn">Modifier</button><button class="secondary" id="printBtn">Imprimer</button></div></div>
+        <div class="readerbar"><button class="secondary" id="backBtn">← Retour aux fiches</button><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="editBtn">Modifier</button><button class="secondary" id="printBtn">PDF / Imprimer</button><button class="secondary" id="v2favorite">☆ Favori</button><button class="secondary" id="v2focus">⛶ Concentration</button><button class="secondary" id="v2markread">✓ Étudiée</button></div></div>
         <span id="readTag" class="tag"></span><h2 id="readTitle" style="font-size:28px;line-height:1.2;letter-spacing:-.03em"></h2><p id="readMeta" class="sub"></p><p id="readSummary" class="sub"></p><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><div id="readBody" class="readerbody"></div>
       </div>
     </section>
@@ -178,7 +228,7 @@ function render(){
  subjects().map(s=>`<button class="cat ${activeCategory===s?'active':''}" data-cat="${esc(s)}">${esc(s)} <span class="count">${counts[s]}</span></button>`).join('');
  cats.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.cat;document.getElementById('reader').classList.remove('open');document.getElementById('listing').style.display='block';render()}));
  const q=document.getElementById('search').value.toLocaleLowerCase('fr').trim();
- const filtered=fiches.filter(f=>(activeCategory==='Toutes'||f.subject===activeCategory)&&[f.title,f.subject,f.topic,f.summary,f.body,f.level].join(' ').toLocaleLowerCase('fr').includes(q));
+ const filtered=fiches.filter(f=>(activeCategory==='Toutes'||f.subject===activeCategory)&&(!document.getElementById('v3level').value||f.level===document.getElementById('v3level').value)&&(!document.getElementById('v3topic').value||f.topic===document.getElementById('v3topic').value)&&[f.title,f.subject,f.topic,f.summary,f.body,f.level].join(' ').toLocaleLowerCase('fr').includes(q));
  document.getElementById('totalStat').textContent=fiches.length;
  document.getElementById('subjectStat').textContent=subjects().length;
  document.getElementById('visibleStat').textContent=filtered.length;
@@ -186,16 +236,16 @@ function render(){
  document.getElementById('listSub').textContent=`${filtered.length} fiche${filtered.length>1?'s':''} · Recherche et catégories`;
  const cards=document.getElementById('cards');
  if(!filtered.length){cards.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="emoji">📚</div><h3>Aucune fiche trouvée</h3><p>Essaie un autre mot-clé ou ajoute une fiche.</p><button id="emptyAdd">＋ Ajouter une fiche</button></div>';document.getElementById('emptyAdd').onclick=openNew}
- else cards.innerHTML=filtered.map(f=>`<article class="card"><div class="cardtop"><span class="tag">${esc(f.subject)}</span><span class="date">${esc(f.level||'')}</span></div><h3>${esc(f.title)}</h3><p>${esc(f.summary||f.topic||'Fiche de révision')}</p><div class="cardbottom"><button class="smallbtn" data-open="${esc(f.id)}">Lire la fiche →</button><button class="smallbtn secondary" data-edit="${esc(f.id)}">Modifier</button><button class="smallbtn secondary" data-delete="${esc(f.id)}" aria-label="Supprimer">Supprimer</button></div></article>`).join('');
+ else cards.innerHTML=filtered.map(f=>`<article class="card"><div class="cardtop"><span class="tag">${esc(f.subject)}</span><span class="date">${esc(f.level||'')}</span></div><h3>${esc(f.title)}</h3><p>${esc(f.summary||f.topic||'Fiche de révision')}</p><div class="cardbottom"><button class="smallbtn" data-open="${esc(f.id)}">Lire la fiche →</button>${initial.some(i=>i.id===f.id)?'':`<button class="smallbtn secondary" data-edit="${esc(f.id)}">Modifier</button><button class="smallbtn secondary" data-delete="${esc(f.id)}" aria-label="Supprimer">Supprimer</button>`}</div></article>`).join('');
  cards.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openReader(b.dataset.open));
  cards.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openEdit(b.dataset.edit));
  cards.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>removeFiche(b.dataset.delete));
 }
-function openReader(id){const f=fiches.find(x=>x.id===id);if(!f)return;currentId=id;document.getElementById('listing').style.display='none';document.getElementById('reader').classList.add('open');document.getElementById('readTag').textContent=f.subject+(f.topic?' · '+f.topic:'');document.getElementById('readTitle').textContent=f.title;document.getElementById('readMeta').textContent=(f.level||'')+' · Ajoutée à ta bibliothèque';document.getElementById('readSummary').textContent=f.summary||'';document.getElementById('readBody').textContent=f.body;window.scrollTo({top:0,behavior:'smooth'})}
+function openReader(id){const f=fiches.find(x=>x.id===id);if(!f)return;currentId=id;document.getElementById('listing').style.display='none';document.getElementById('reader').classList.add('open');document.getElementById('readTag').textContent=f.subject+(f.topic?' · '+f.topic:'');document.getElementById('readTitle').textContent=f.title;document.getElementById('readMeta').textContent=(f.level||'')+' · Ajoutée à ta bibliothèque';document.getElementById('readSummary').textContent=f.summary||'';document.getElementById('readBody').textContent=f.body;const searchTerm=document.getElementById('search').value.trim();if(searchTerm.length>=2){const body=document.getElementById('readBody'),lower=f.body.toLocaleLowerCase('fr'),term=searchTerm.toLocaleLowerCase('fr');let from=0,at,parts=[],hits=0;while((at=lower.indexOf(term,from))!==-1&&hits<80){parts.push(esc(f.body.slice(from,at)),'<mark>'+esc(f.body.slice(at,at+searchTerm.length))+'</mark>');from=at+searchTerm.length;hits++}parts.push(esc(f.body.slice(from)));body.innerHTML=parts.join('');}document.getElementById('editBtn').hidden=initial.some(i=>i.id===id);window.scrollTo({top:0,behavior:'smooth'})}
 function closeReader(){document.getElementById('reader').classList.remove('open');document.getElementById('listing').style.display='block';render()}
 function openNew(){editingId=null;document.getElementById('ficheForm').reset();document.getElementById('formTitle').textContent='Ajouter une fiche';document.getElementById('formpanel').classList.add('open');document.getElementById('subject').value=activeCategory==='Toutes'?'':activeCategory;document.getElementById('formpanel').scrollIntoView({behavior:'smooth',block:'start'})}
-function openEdit(id){const f=fiches.find(x=>x.id===id);if(!f)return;editingId=id;document.getElementById('formTitle').textContent='Modifier la fiche';document.getElementById('title').value=f.title;document.getElementById('subject').value=f.subject;document.getElementById('level').value=f.level||'Première';document.getElementById('topic').value=f.topic||'';document.getElementById('summary').value=f.summary||'';document.getElementById('body').value=f.body;document.getElementById('formpanel').classList.add('open');document.getElementById('formpanel').scrollIntoView({behavior:'smooth',block:'start'})}
-function removeFiche(id){const f=fiches.find(x=>x.id===id);if(!f)return;if(confirm(`Supprimer la fiche « ${f.title} » ?`)){fiches=fiches.filter(x=>x.id!==id);save();render();if(currentId===id)closeReader()}}
+function openEdit(id){const f=fiches.find(x=>x.id===id);if(!f)return;if(initial.some(i=>i.id===id)){alert('Les fiches officielles sont en lecture seule. Tu peux créer ta propre fiche personnelle.');return}editingId=id;document.getElementById('formTitle').textContent='Modifier la fiche';document.getElementById('title').value=f.title;document.getElementById('subject').value=f.subject;document.getElementById('level').value=f.level||'Première';document.getElementById('topic').value=f.topic||'';document.getElementById('summary').value=f.summary||'';document.getElementById('body').value=f.body;document.getElementById('formpanel').classList.add('open');document.getElementById('formpanel').scrollIntoView({behavior:'smooth',block:'start'})}
+function removeFiche(id){const f=fiches.find(x=>x.id===id);if(!f)return;if(initial.some(i=>i.id===id)){alert('Impossible de supprimer une fiche officielle.');return}if(confirm(`Supprimer la fiche « ${f.title} » ?`)){fiches=fiches.filter(x=>x.id!==id);save();render();if(currentId===id)closeReader()}}
 document.getElementById('themeBtn').onclick=()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(THEME_KEY,next);applyTheme(next)};
 document.getElementById('newBtn').onclick=openNew;
 document.getElementById('cancelBtn').onclick=()=>document.getElementById('formpanel').classList.remove('open');
@@ -209,6 +259,196 @@ document.getElementById('importFile').addEventListener('change',async e=>{const 
 // Ensure starter fiche is persisted on first visit.
 if(!localStorage.getItem(KEY))save();
 render();
+
+/* V2 — données personnelles uniquement dans ce navigateur */
+const V2KEY='fiches-v2-progress';
+const v2default=()=>({favorites:[],read:[],visits:[],quizResults:[],exams:[],cards:{},seconds:0});
+let v2state;try{v2state={...v2default(),...JSON.parse(localStorage.getItem(V2KEY)||'{}')}}catch(e){v2state=v2default()}
+let v2tab='home',v2cardDeck=[],v2cardIndex=0,v2cardFlipped=false,v2activeQuiz=[],v3cardDeadline=0,v3cardTimer=null;
+function v2save(){localStorage.setItem(V2KEY,JSON.stringify(v2state))}
+function v2id(id){return document.getElementById(id)}
+function v2escape(x){return esc(String(x??''))}
+function v2show(tab){
+ v2tab=tab;
+ document.querySelectorAll('[data-v2tab]').forEach(b=>b.classList.toggle('on',b.dataset.v2tab===tab));
+ document.querySelectorAll('.v2panel').forEach(p=>p.classList.toggle('on',p.id==='v2'+tab));
+ const lib=tab==='library'||tab==='favorites';
+ for(const id of ['v2librarytoolbar','v2librarystats','v2librarylayout'])v2id(id).style.display=lib?'':'none';
+ if(lib){activeCategory='Toutes';v2id('search').value='';closeReader();render();if(tab==='favorites')v2filterFavorites()}
+ v2refresh();window.scrollTo({top:0,behavior:'smooth'})
+}
+document.querySelectorAll('[data-v2tab]').forEach(b=>b.onclick=()=>v2show(b.dataset.v2tab));
+v2id('v2openlibrary').onclick=()=>v2show('library');
+function v2filterFavorites(){
+ document.querySelectorAll('#cards .card').forEach(c=>{const id=c.querySelector('[data-open]')?.dataset.open;c.style.display=v2state.favorites.includes(id)?'':'none'});
+ v2id('listTitle').textContent='⭐ Mes favoris';
+}
+function v2refresh(){
+ const done=v2state.read.filter(id=>fiches.some(f=>f.id===id)).length;
+ const privateCount=fiches.filter(f=>!initial.some(i=>i.id===f.id)).length;
+ const avg=v2state.quizResults.length?Math.round(v2state.quizResults.reduce((s,x)=>s+x.score,0)/v2state.quizResults.length):null;
+ v2id('v2total').textContent=fiches.length;v2id('v2done').textContent=done;v2id('v2next').textContent=privateCount;
+ v2id('v2score').textContent=avg===null?'—':avg+'%';
+ v2id('v2statread').textContent=done;v2id('v2statquiz').textContent=v2state.quizResults.length;v2id('v2statavg').textContent=avg===null?'—':avg+'%';v2id('v2stattime').textContent=Math.floor(v2state.seconds/60)+' min';
+ v2id('v2bar').style.width=(fiches.length?Math.round(done/fiches.length*100):0)+'%';v2id('v2progresslabel').textContent=done+' / '+fiches.length+' fiches étudiées';
+ v2id('v2recent').innerHTML=fiches.slice(0,4).map(f=>'<button class="secondary" style="margin:4px" data-v2read="'+v2escape(f.id)+'">'+v2escape(f.subject)+' · '+v2escape(f.title)+'</button>').join('');
+ document.querySelectorAll('[data-v2read]').forEach(b=>b.onclick=()=>{v2show('library');openReader(b.dataset.v2read)});
+ for(const id of ['v2quizselect','v2cardselect','v3practiceselect']){const sel=v2id(id),before=sel.value;sel.innerHTML=fiches.map(f=>'<option value="'+v2escape(f.id)+'">'+v2escape(f.subject)+' · '+v2escape(f.title)+'</option>').join('');if(fiches.some(f=>f.id===before))sel.value=before}
+
+ v2id('v2privatelist').innerHTML=fiches.filter(f=>!initial.some(i=>i.id===f.id)).map(f=>'<div class="v2box v2row"><strong style="font-size:16px">'+v2escape(f.title)+'</strong><span class="v2muted">'+v2escape(f.subject)+'</span><button class="secondary" data-v2private="'+v2escape(f.id)+'">Ouvrir</button></div>').join('')||'<p class="v2muted">Aucune fiche personnelle sur cet appareil.</p>';
+ document.querySelectorAll('[data-v2private]').forEach(b=>b.onclick=()=>{v2show('library');openReader(b.dataset.v2private)});
+
+ if(currentId){v2id('v2favorite').textContent=v2state.favorites.includes(currentId)?'★ Favori':'☆ Favori';v2id('v2markread').textContent=v2state.read.includes(currentId)?'✓ Étudiée':'Marquer étudiée'}
+}
+const v2OriginalOpenReader=openReader;
+openReader=function(id){v2OriginalOpenReader(id);v2state.visits.push({id,date:new Date().toISOString()});v2save();v2refresh()};
+v2id('v2favorite').onclick=()=>{if(!currentId)return;v2state.favorites=v2state.favorites.includes(currentId)?v2state.favorites.filter(x=>x!==currentId):[...v2state.favorites,currentId];v2save();v2refresh()};
+v2id('v2markread').onclick=()=>{if(!currentId)return;v2state.read=v2state.read.includes(currentId)?v2state.read.filter(x=>x!==currentId):[...v2state.read,currentId];v2save();v2refresh()};
+v2id('v2focus').onclick=()=>{document.body.classList.toggle('focus');v2id('v2focus').textContent=document.body.classList.contains('focus')?'Quitter concentration':'⛶ Concentration'};
+v2id('backBtn').addEventListener('click',()=>document.body.classList.remove('focus'));
+setInterval(()=>{if(!document.hidden && (v2tab==='quiz'||v2tab==='cards'||document.getElementById('reader').classList.contains('open'))){v2state.seconds+=30;v2save()}},30000);
+function v2Questions(f){
+ const raw=f.body||'';
+ const lines=raw.split('\n').map(x=>x.trim()).filter(x=>x.length>12&&x.length<150);
+ const terms=[];
+ for(const line of lines){const m=line.match(/^[-•]?\s*([^:]{4,65})\s*:\s*(.{8,160})$/);if(m && !/^(exemple|correction|solution|dates|définition|formule|méthode|objectif)$/i.test(m[1]))terms.push({q:'Que signifie « '+m[1].replace(/^[•-]\s*/,'')+' » ?',a:m[2]})}
+ if(!terms.length){
+ const sentences=raw.split(/[.!?]\s+/).map(x=>x.trim()).filter(x=>x.length>35&&x.length<150).slice(0,8);
+ for(const x of sentences)terms.push({q:'Quelle affirmation correspond à cette fiche ?',a:x});
+ }
+ return terms.slice(0,12);
+}
+
+let v3quizDeadline=0,v3quizTimer=null,v3quizAnswers=[];
+function v3Shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function v3FinishQuiz(f){
+ if(v3quizTimer){clearInterval(v3quizTimer);v3quizTimer=null}
+ let good=0;const report=[];
+ v2activeQuiz.forEach((t,i)=>{const checked=document.querySelector('input[name="v2q'+i+'"]:checked');const ans=checked?t.options[Number(checked.value)]:null;if(ans===t.a)good++;else report.push('<div class="v2question"><b>'+v2escape(t.q)+'</b><p>Ta réponse : '+v2escape(ans||'Aucune')+'</p><p>Réponse attendue : '+v2escape(t.a)+'</p></div>')});
+ const score=Math.round(good/v2activeQuiz.length*100);v2state.quizResults.push({id:f.id,subject:f.subject,topic:f.topic,date:new Date().toISOString(),score,wrong:v2activeQuiz.filter((t,i)=>{const x=document.querySelector('input[name="v2q'+i+'"]:checked');return !x||t.options[Number(x.value)]!==t.a}).map(t=>t.q)});v2save();
+ v2id('v2quizarea').innerHTML='<h3>Résultat : '+good+'/'+v2activeQuiz.length+' — '+(score/5).toFixed(1)+'/20</h3><p>'+score+' % de réussite</p>'+report.join('')+'<button class="secondary" id="v3retry">Recommencer</button>';
+ v2id('v3retry').onclick=()=>v2id('v2quizstart').click();v2refresh();
+}
+v2id('v2quizstart').onclick=()=>{
+ if(v3quizTimer){clearInterval(v3quizTimer);v3quizTimer=null}
+ const f=fiches.find(x=>x.id===v2id('v2quizselect').value);if(!f)return;
+ const terms=v2Questions(f);const count=Number(v2id('v3count').value);const difficulty=v2id('v3difficulty').value;
+ if(terms.length<2){v2id('v2quizarea').textContent='Cette fiche ne contient pas assez de définitions distinctes pour créer un QCM fiable.';return}const chosen=v3Shuffle(terms).slice(0,count);
+ v2activeQuiz=chosen.map((t,i)=>{const reverse=difficulty==='medium'||(difficulty==='hard')||(difficulty==='mixed'&&i%2===1);const source=reverse?{q:'Quelle notion correspond à cette définition ? « '+t.a+' »',a:t.q.replace(/^Que signifie « | » \?$/g,'')}:t;const wrong=v3Shuffle(terms.filter(x=>x!==t&&(reverse?x.q!==t.q:x.a!==t.a))).slice(0,3).map(x=>reverse?x.q.replace(/^Que signifie « | » \?$/g,''):x.a);return {...source,options:v3Shuffle([source.a,...wrong])}});
+ if(!v2activeQuiz.length){v2id('v2quizarea').textContent='Cette fiche ne contient pas assez de définitions pour un quiz automatique.';return}
+ const minutes=Number(v2id('v3minutes').value);v3quizDeadline=minutes?Date.now()+minutes*60000:0;
+ v2id('v2quizarea').innerHTML='<p class="v2muted">Mode : '+({easy:'Définitions',medium:'Notions à identifier',hard:'Notions à identifier (sans indice)',mixed:'Mixte'}[difficulty])+' · '+v2activeQuiz.length+' questions disponibles</p><strong id="v3clock"></strong>'+v2activeQuiz.map((t,i)=>'<div class="v2question"><b>'+(i+1)+'. '+v2escape(t.q)+'</b>'+t.options.map((o,j)=>'<label><input type="radio" name="v2q'+i+'" value="'+j+'"> '+v2escape(o)+'</label>').join('')+'</div>').join('')+'<button id="v2checkquiz">Rendre ma copie</button>';
+ v2id('v2checkquiz').onclick=()=>v3FinishQuiz(f);
+ if(minutes){const tick=()=>{const el=v2id('v3clock');if(!el){clearInterval(v3quizTimer);v3quizTimer=null;return}const remaining=Math.max(0,Math.ceil((v3quizDeadline-Date.now())/1000));el.textContent='⏱ '+Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0');if(!remaining)v3FinishQuiz(f)};tick();v3quizTimer=setInterval(tick,1000)}
+};
+v2id('v2cardstart').onclick=()=>{if(v3cardTimer){clearInterval(v3cardTimer);v3cardTimer=null}const f=fiches.find(x=>x.id===v2id('v2cardselect').value);if(!f)return;v2cardDeck=v2Questions(f);const mode=v2id('v3cardmode').value;if(mode==='memory'){v2cardDeck.sort((a,b)=>(v2state.cards[f.id+'-'+v2Questions(f).indexOf(a)]||0)-(v2state.cards[f.id+'-'+v2Questions(f).indexOf(b)]||0))}v2cardIndex=0;v2cardFlipped=false;v3cardDeadline=mode==='fast'?Date.now()+300000:0;v2renderCard();if(v3cardDeadline){v3cardTimer=setInterval(()=>{if(Date.now()>=v3cardDeadline){clearInterval(v3cardTimer);v3cardTimer=null;v2id('v2cardarea').innerHTML='<h3>⏱ Temps écoulé !</h3>'}else{const clock=v2id('v3cardclock');if(clock)clock.textContent='⏱ '+Math.ceil((v3cardDeadline-Date.now())/1000)+' s restantes'}},1000)}};
+function v2renderCard(){
+ const box=v2id('v2cardarea');if(!v2cardDeck.length){box.innerHTML='<p>Aucune carte disponible pour cette fiche.</p>';return}
+ const t=v2cardDeck[v2cardIndex%v2cardDeck.length];
+ box.innerHTML='<p id="v3cardclock" class="v2muted"></p><p class="v2muted">Carte '+(v2cardIndex+1)+' / '+v2cardDeck.length+'</p><div id="v2flip" class="v2flip" tabindex="0" role="button">'+v2escape(v2cardFlipped?t.a:t.q)+'</div><p class="v2muted">Clique sur la carte pour la retourner.</p><div class="v2row"><button class="secondary" data-v2rate="0">❌ À revoir</button><button class="secondary" data-v2rate="1">🟡 Presque</button><button data-v2rate="2">✅ Je connais</button></div>';
+ v2id('v2flip').onclick=()=>{v2cardFlipped=!v2cardFlipped;v2renderCard()};
+ v2id('v2flip').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();v2id('v2flip').click()}};
+ document.querySelectorAll('[data-v2rate]').forEach(b=>b.onclick=()=>{const fId=v2id('v2cardselect').value;v2state.cards[fId+'-'+v2cardIndex]=Number(b.dataset.v2rate);v2save();if(v2cardIndex===v2cardDeck.length-1){if(v2id('v3cardmode').value==='discover'||v2id('v3cardmode').value==='fast'){v2id('v2cardarea').innerHTML='<h3>🎉 Session terminée !</h3>';return}const weak=v2cardDeck.map((_,i)=>i).filter(i=>v2state.cards[fId+'-'+i]!==2);if(weak.length){v2cardDeck=weak.map(i=>v2cardDeck[i]);v2cardIndex=0;v2cardFlipped=false;v2renderCard()}else v2id('v2cardarea').innerHTML='<h3>🎉 Toutes les cartes sont maîtrisées !</h3>'}else{v2cardIndex++;v2cardFlipped=false;v2renderCard()}});
+}
+v2id('v2exportstats').onclick=()=>{const a=document.createElement('a');const url=URL.createObjectURL(new Blob([JSON.stringify(v2state,null,2)],{type:'application/json'}));a.href=url;a.download='progression-revision.json';a.click();URL.revokeObjectURL(url)};
+v2id('v2importstats').onchange=async e=>{try{if(!e.target.files?.[0])return;const x=JSON.parse(await e.target.files[0].text());if(!x||!Array.isArray(x.favorites)||!Array.isArray(x.read)||!Array.isArray(x.quizResults))throw Error();if(confirm('Remplacer ta progression actuelle par cette sauvegarde ?')){v2state={...v2default(),...x};v2save();v2refresh()}}catch(e){alert('Sauvegarde invalide')}};
+const v2OriginalRender=render;
+render=function(){v2OriginalRender();if(v2tab==='favorites')v2filterFavorites()};
+
+/* V2.1 — préférences locales et espace de fiches personnelles */
+const V2PREFKEY='fiches-v2-preferences';
+const v2prefsDefault=()=>({color:'#8b5cf6',font:'16',motion:false,view:'grid',round:'rounded'});
+let v2prefs;try{v2prefs={...v2prefsDefault(),...JSON.parse(localStorage.getItem(V2PREFKEY)||'{}')}}catch(e){v2prefs=v2prefsDefault()}
+function v2applyPrefs(){
+ const c=/^#[0-9a-fA-F]{6}$/.test(v2prefs.color)?v2prefs.color:'#8b5cf6';
+ document.documentElement.style.setProperty('--accent',c);
+ document.documentElement.style.setProperty('--accent2',c+'20');
+ document.documentElement.style.setProperty('--v2brand',c);
+ document.documentElement.style.setProperty('--v2font',v2prefs.font+'px');
+ document.documentElement.classList.toggle('v2nomotion',!!v2prefs.motion);
+ document.documentElement.classList.toggle('v2list',v2prefs.view==='list');
+ document.documentElement.classList.toggle('v2square',v2prefs.round==='square');
+ v2id('v2color').value=c;v2id('v2font').value=v2prefs.font;v2id('v2motion').checked=!!v2prefs.motion;v2id('v2view').value=v2prefs.view;v2id('v2round').value=v2prefs.round;
+ v2id('v2theme').value=document.documentElement.dataset.theme==='dark'?'dark':'light';
+}
+function v2setPref(key,value){v2prefs[key]=value;localStorage.setItem(V2PREFKEY,JSON.stringify(v2prefs));v2applyPrefs()}
+document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>v2setPref('color',b.dataset.color));
+v2id('v2color').oninput=e=>v2setPref('color',e.target.value);
+v2id('v2font').onchange=e=>v2setPref('font',e.target.value);
+v2id('v2motion').onchange=e=>v2setPref('motion',e.target.checked);
+v2id('v2view').onchange=e=>v2setPref('view',e.target.value);
+v2id('v2round').onchange=e=>v2setPref('round',e.target.value);
+v2id('v2theme').onchange=e=>{localStorage.setItem(THEME_KEY,e.target.value);applyTheme(e.target.value);v2applyPrefs()};
+v2id('v2resetsettings').onclick=()=>{v2prefs=v2prefsDefault();localStorage.setItem(V2PREFKEY,JSON.stringify(v2prefs));v2applyPrefs()};
+v2id('v2newprivate').onclick=()=>{v2show('library');openNew()};
+v2id('v2privatelibrary').onclick=()=>v2show('library');
+v2applyPrefs();
+
+
+/* V2.5 — filtres, entraînement et analyse par matière */
+function v3Filters(){
+ for(const [id,vals] of [['v3level',[...new Set(fiches.map(f=>f.level).filter(Boolean))]],['v3topic',[...new Set(fiches.map(f=>f.topic).filter(Boolean))]]]){
+ const select=v2id(id),previous=select.value,first=select.options[0].outerHTML;
+ select.innerHTML=first+vals.sort((a,b)=>a.localeCompare(b,'fr')).map(v=>'<option value="'+v2escape(v)+'">'+v2escape(v)+'</option>').join('');select.value=vals.includes(previous)?previous:'';
+ }
+}
+v3Filters();
+for(const id of ['v3level','v3topic'])v2id(id).onchange=()=>render();
+const v3OrigRender=render;render=function(){v3OrigRender();v3Filters()};
+v2id('v3practicestart').onclick=()=>{
+ const f=fiches.find(x=>x.id===v2id('v3practiceselect').value);if(!f)return;
+ const terms=v2Questions(f);if(!terms.length){v2id('v3practicearea').textContent='Pas assez de notions dans cette fiche.';return}
+ let i=0;const area=v2id('v3practicearea');
+ function show(){const t=terms[i];area.innerHTML='<p class="v2muted">Exercice '+(i+1)+'/'+terms.length+'</p><div class="v2question"><h3>'+v2escape(t.q)+'</h3><textarea id="v3answer" class="v2input" rows="4" style="width:100%" placeholder="Rédige ta réponse…"></textarea><div class="v2row"><button class="secondary" id="v3hint">Indice</button><button id="v3solution">Voir la correction</button><button class="secondary" id="v3next">Suivant</button></div><div id="v3feedback"></div></div>';v2id('v3hint').onclick=()=>v2id('v3feedback').textContent='Retrouve la définition ou la formule dans la fiche '+f.title+'.';v2id('v3solution').onclick=()=>v2id('v3feedback').innerHTML='<strong>Réponse attendue :</strong> '+v2escape(t.a);v2id('v3next').onclick=()=>{i=(i+1)%terms.length;show()}}show();
+};
+const v3OrigRefresh=v2refresh;v2refresh=function(){
+ v3OrigRefresh();
+ const bySubject={};for(const r of v2state.quizResults){const f=fiches.find(x=>x.id===r.id);const subject=r.subject||(f&&f.subject)||'Autre';(bySubject[subject]??=[]).push(r)}
+ let panel=v2id('v3subjectstats');if(!panel){panel=document.createElement('div');panel.id='v3subjectstats';v2id('v2stats').appendChild(panel)}
+ panel.innerHTML='<h3>Maîtrise par matière</h3>'+Object.entries(bySubject).map(([name,results])=>{const avg=Math.round(results.reduce((a,r)=>a+r.score,0)/results.length);const errors={};for(const r of results)for(const q of r.wrong||[])errors[q]=(errors[q]||0)+1;const weak=Object.entries(errors).sort((a,b)=>b[1]-a[1]).slice(0,3);return '<div class="v2box"><b>'+v2escape(name)+' : '+avg+' %</b><div class="v2progress"><div style="width:'+avg+'%"></div></div>'+ (weak.length?'<p class="v2muted">À retravailler : '+weak.map(([q,n])=>v2escape(q)+' ('+n+')').join(' · ')+'</p>':'')+'</div>'}).join('')+(Object.keys(bySubject).length?'':'<p class="v2muted">Termine un quiz pour afficher ta progression.</p>');
+};
+v2refresh();
+
+if('serviceWorker' in navigator && location.protocol==='https:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+
+/* V2.6 — authentification optionnelle, désactivée tant que Supabase n'est pas configuré.
+   La clé publique (publishable/anon) peut être visible dans le navigateur ; jamais de service_role. */
+let v3supabase=null,v3user=null;
+async function v3InitAuth(){
+ const status=v2id('v3authstatus'),cfg=window.REVISION_SUPABASE_CONFIG;
+ if(!cfg||!/^https:\/\//.test(cfg.url||'')||!cfg.anonKey){status.textContent='🔒 Création de comptes pas encore activée : configuration Supabase nécessaire.';v2id('v3authform').hidden=true;return}
+ try{
+  const mod=await import('https://esm.sh/@supabase/supabase-js@2');
+  v3supabase=mod.createClient(cfg.url,cfg.anonKey);
+  const {data:{user}}=await v3supabase.auth.getUser();v3SetUser(user);
+  v3supabase.auth.onAuthStateChange((_event,session)=>v3SetUser(session?.user||null));
+ }catch(e){status.textContent='Connexion indisponible pour le moment.';v2id('v3authform').hidden=true}
+}
+function v3SetUser(user){
+ v3user=user;
+ v2id('v3authstatus').textContent=user?'Connecté : '+user.email:'Connecte-toi pour accéder à ton compte.';
+ v2id('v3authform').hidden=!!user;
+ v2id('v3signout').hidden=!user;
+}
+async function v3AuthAction(action){
+ if(!v3supabase)return;
+ const email=v2id('v3email').value.trim(),password=v2id('v3password').value;
+ if(!email){v2id('v3authstatus').textContent='Saisis ton adresse e-mail.';return}
+ if(action!=='reset'&&password.length<8){v2id('v3authstatus').textContent='Le mot de passe doit contenir au moins 8 caractères.';return}
+ let result;
+ if(action==='signup')result=await v3supabase.auth.signUp({email,password});
+ if(action==='signin')result=await v3supabase.auth.signInWithPassword({email,password});
+ if(action==='reset')result=await v3supabase.auth.resetPasswordForEmail(email);
+ v2id('v3authstatus').textContent=result.error?result.error.message:(action==='signup'?'Vérifie ta boîte mail pour confirmer ton compte.':action==='reset'?'Consulte tes e-mails pour réinitialiser ton mot de passe.':'Connexion effectuée.');
+}
+v2id('v3signup').onclick=()=>v3AuthAction('signup');
+v2id('v3signin').onclick=()=>v3AuthAction('signin');
+v2id('v3reset').onclick=()=>v3AuthAction('reset');
+v2id('v3signout').onclick=async()=>{if(v3supabase)await v3supabase.auth.signOut()};
+v3InitAuth();
+
+v2show('home');
+
 </script>
 <style>
 @media print{header,.toolbar,.stats,.sidebar,.content-head,.readerbar,footer,.formpanel{display:none!important}body,main,.content{background:white;margin:0;padding:0;border:0;box-shadow:none}.layout{display:block}.reader{display:block!important}.readerbody{font-size:12pt}}

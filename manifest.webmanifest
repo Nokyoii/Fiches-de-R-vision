@@ -1,0 +1,19 @@
+{
+  "name": "Mes fiches de révision",
+  "short_name": "Mes fiches",
+  "description": "Fiches, quiz, flashcards et exercices pour réviser",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#10121a",
+  "theme_color": "#8b5cf6",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
