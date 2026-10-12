@@ -67,6 +67,29 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v3subjectstats .v2box{margin:10px 0}
 #v3practicearea textarea{max-width:100%}
 @media(max-width:850px){#v2librarytoolbar{grid-template-columns:1fr 1fr}#v2librarytoolbar #search{grid-column:1/-1}}
+
+/* Lecteur pédagogique enrichi : typographie, blocs, schémas SVG locaux */
+.readerbody{white-space:normal;font-size:16px;line-height:1.8;max-width:860px;margin:auto}
+.revision-intro{display:flex;align-items:center;gap:16px;padding:20px 22px;border:1px solid var(--line);border-radius:20px;background:var(--accent2);margin:8px 0 22px}
+.revision-intro .revision-icon{font-size:42px}
+.revision-intro strong{display:block;font-size:20px;line-height:1.25}
+.revision-intro span{font-size:13px;color:var(--muted)}
+.revision-section{margin:20px 0;padding:20px 22px;border:1px solid var(--line);background:var(--panel);border-radius:18px}
+.revision-section h3{font-size:20px;line-height:1.3;margin:0 0 16px;color:var(--text);border-bottom:1px solid var(--line);padding-bottom:12px}
+.revision-section p{margin:10px 0}
+.revision-line{padding:8px 11px;margin:9px 0;background:var(--bg);border-radius:10px}
+.revision-line strong{color:var(--accent)}
+.revision-example{padding:12px 15px;margin:13px 0;border-left:4px solid #10b981;background:color-mix(in srgb,#10b981 10%,var(--panel));border-radius:0 12px 12px 0}
+.revision-formula{font-size:17px;font-weight:700;padding:14px 17px;margin:12px 0;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;background:var(--accent2);overflow-wrap:anywhere}
+.revision-bullet{padding:7px 12px;margin:6px 0 6px 10px;border-left:3px solid var(--line)}
+.revision-highlight{padding:11px 14px;border-radius:12px;background:color-mix(in srgb,#f59e0b 12%,var(--panel));border:1px solid color-mix(in srgb,#f59e0b 28%,var(--line))}
+.revision-visual{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.revision-visual .diagram{padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--bg);text-align:center}
+.revision-visual svg{width:100%;height:auto;max-height:190px}
+.revision-visual figcaption{font-size:12px;color:var(--muted);margin-top:5px}
+.readerbody mark{background:#ffe081;color:#332a00;border-radius:3px;padding:0 2px}
+@media(max-width:640px){.revision-section{padding:15px}.revision-intro{padding:14px}.revision-visual{grid-template-columns:1fr}.readerbody{font-size:15px}}
+@media print{.revision-section,.revision-intro,.revision-visual .diagram{break-inside:avoid;box-shadow:none}.revision-section{border:1px solid #ccc}.readerbody{max-width:none}}
 </style>
 </head>
 <body>
@@ -241,7 +264,45 @@ function render(){
  cards.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openEdit(b.dataset.edit));
  cards.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>removeFiche(b.dataset.delete));
 }
-function openReader(id){const f=fiches.find(x=>x.id===id);if(!f)return;currentId=id;document.getElementById('listing').style.display='none';document.getElementById('reader').classList.add('open');document.getElementById('readTag').textContent=f.subject+(f.topic?' · '+f.topic:'');document.getElementById('readTitle').textContent=f.title;document.getElementById('readMeta').textContent=(f.level||'')+' · Ajoutée à ta bibliothèque';document.getElementById('readSummary').textContent=f.summary||'';document.getElementById('readBody').textContent=f.body;const searchTerm=document.getElementById('search').value.trim();if(searchTerm.length>=2){const body=document.getElementById('readBody'),lower=f.body.toLocaleLowerCase('fr'),term=searchTerm.toLocaleLowerCase('fr');let from=0,at,parts=[],hits=0;while((at=lower.indexOf(term,from))!==-1&&hits<80){parts.push(esc(f.body.slice(from,at)),'<mark>'+esc(f.body.slice(at,at+searchTerm.length))+'</mark>');from=at+searchTerm.length;hits++}parts.push(esc(f.body.slice(from)));body.innerHTML=parts.join('');}document.getElementById('editBtn').hidden=initial.some(i=>i.id===id);window.scrollTo({top:0,behavior:'smooth'})}
+
+/* Le contenu est conservé tel quel : enrichissement visuel uniquement. */
+function revisionEmoji(subject){const map={'Mathématiques':'📐','Histoire':'🏛️','Géographie':'🌍','Physique-chimie':'⚗️','Physique':'⚡','Chimie':'🧪','Français':'📖','Anglais':'🇬🇧','SVT':'🧬','Technologie':'🛠️','STI2D':'⚙️'};return map[subject]||'📚'}
+function revisionClassify(line){
+ const v=line.trim();
+ if(/^[-•▪]\s+/.test(v))return 'revision-bullet';
+ if(/^(exemple|application|cas pratique)\b/i.test(v))return 'revision-example';
+ if(/^(formule|relation|équation|calcul|à retenir|important|attention|méthode)\s*:/i.test(v))return /^(formule|relation|équation|calcul)/i.test(v)?'revision-formula':'revision-highlight';
+ if(/^(définition|propriété|théorème|règle|objectif|conséquence)\s*:/i.test(v))return 'revision-line';
+ return '';
+}
+function revisionInline(text,search){
+ const line=String(text),m=line.match(/^([^:]{2,35}:)(.*)$/);
+ let out=m&&/^(définition|formule|exemple|propriété|méthode|attention|important|à retenir|règle|calcul|relation|équation|objectif|conséquence)/i.test(m[1])?'<strong>'+esc(m[1])+'</strong>'+esc(m[2]):esc(line);
+ if(search&&search.length>=2){const safe=esc(search).replace(/[.*+?^$\{\}()|[\]\\]/g,'\\function openReader(id){');try{out=out.replace(new RegExp('('+safe+')','gi'),'<mark>$1</mark>')}catch(e){}}
+ return out;
+}
+function revisionDiagram(f){
+ if(!/math/i.test(f.subject||'')||!/suites arithmétiques et géométriques/i.test(f.title||''))return '';
+ return '<div class="revision-visual"><figure class="diagram"><svg viewBox="0 0 320 160" role="img" aria-label="Suite arithmétique : points alignés sur une droite croissante"><path d="M35 15V135H305" stroke="currentColor" fill="none" opacity=".5" stroke-width="2"/><path d="M50 120L280 30" stroke="#8b5cf6" fill="none" stroke-width="4"/>'+[0,1,2,3,4].map(i=>'<circle cx="'+(50+i*55)+'" cy="'+(120-i*21.5)+'" r="5" fill="#8b5cf6"/>').join('')+'</svg><figcaption>📈 Suite arithmétique : différence constante (illustration)</figcaption></figure><figure class="diagram"><svg viewBox="0 0 320 160" role="img" aria-label="Suite géométrique : croissance accélérée"><path d="M35 15V135H305" stroke="currentColor" fill="none" opacity=".5" stroke-width="2"/><path d="M50 126Q180 122 280 22" stroke="#10b981" fill="none" stroke-width="4"/>'+[[50,126],[105,120],[160,104],[215,72],[280,22]].map(([x,y])=>'<circle cx="'+x+'" cy="'+y+'" r="5" fill="#10b981"/>').join('')+'</svg><figcaption>📊 Suite géométrique : multiplication constante (illustration)</figcaption></figure></div>';
+}
+function revisionFormat(f,search){
+ const lines=String(f.body||'').replace(/\r\n?/g,'\n').split('\n');
+ let html='<div class="revision-intro"><div class="revision-icon">'+revisionEmoji(f.subject)+'</div><div><strong>'+esc(f.title)+'</strong><span>'+esc(f.subject)+' · '+esc(f.level||'Révisions')+'</span></div></div>';
+ html+=revisionDiagram(f);
+ let open=false,paragraph=[];
+ function flush(){if(paragraph.length){html+='<p>'+paragraph.map(x=>revisionInline(x,search)).join('<br>')+'</p>';paragraph=[]}}
+ function section(title){flush();if(open)html+='</section>';html+='<section class="revision-section"><h3>📌 '+revisionInline(title,search)+'</h3>';open=true}
+ for(const raw of lines){const line=raw.trim();if(!line){flush();continue}
+ const heading=/^(\d{1,2}[.)]\s+\S.*|(?:PARTIE|CHAPITRE)\s+[\dIVX]+\s*[:–-]\s*.+)$/i.test(line)||(/^[A-ZÀ-ÖØ-Þ0-9][A-ZÀ-ÖØ-Þ0-9\s’'()–—,.:+\-/]{6,85}$/.test(line)&&/[A-ZÀ-ÖØ-Þ]{4}/.test(line)&&!line.endsWith(':'));
+ if(heading){section(line);continue}
+ const cls=revisionClassify(line);
+ if(cls){flush();if(!open)section('À connaître');html+='<div class="'+cls+'">'+(cls==='revision-bullet'?'🔹 ':'')+revisionInline(line,search)+'</div>'}else paragraph.push(line)
+ }
+ flush();if(open)html+='</section>';
+ return html;
+}
+
+function openReader(id){const f=fiches.find(x=>x.id===id);if(!f)return;currentId=id;document.getElementById('listing').style.display='none';document.getElementById('reader').classList.add('open');document.getElementById('readTag').textContent=f.subject+(f.topic?' · '+f.topic:'');document.getElementById('readTitle').textContent=f.title;document.getElementById('readMeta').textContent=(f.level||'')+' · Ajoutée à ta bibliothèque';document.getElementById('readSummary').textContent=f.summary||'';document.getElementById('readBody').innerHTML=revisionFormat(f,document.getElementById('search').value.trim());document.getElementById('editBtn').hidden=initial.some(i=>i.id===id);window.scrollTo({top:0,behavior:'smooth'})}
 function closeReader(){document.getElementById('reader').classList.remove('open');document.getElementById('listing').style.display='block';render()}
 function openNew(){editingId=null;document.getElementById('ficheForm').reset();document.getElementById('formTitle').textContent='Ajouter une fiche';document.getElementById('formpanel').classList.add('open');document.getElementById('subject').value=activeCategory==='Toutes'?'':activeCategory;document.getElementById('formpanel').scrollIntoView({behavior:'smooth',block:'start'})}
 function openEdit(id){const f=fiches.find(x=>x.id===id);if(!f)return;if(initial.some(i=>i.id===id)){alert('Les fiches officielles sont en lecture seule. Tu peux créer ta propre fiche personnelle.');return}editingId=id;document.getElementById('formTitle').textContent='Modifier la fiche';document.getElementById('title').value=f.title;document.getElementById('subject').value=f.subject;document.getElementById('level').value=f.level||'Première';document.getElementById('topic').value=f.topic||'';document.getElementById('summary').value=f.summary||'';document.getElementById('body').value=f.body;document.getElementById('formpanel').classList.add('open');document.getElementById('formpanel').scrollIntoView({behavior:'smooth',block:'start'})}
