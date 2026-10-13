@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#171a35">
+<meta name="theme-color" content="#7056d9">
 <meta name="description" content="Fiches de révision, quiz, flashcards et exercices pour le lycée.">
 <link rel="manifest" href="./manifest.webmanifest">
 <script src="./supabase-config.js"></script>
-<title>Mes fiches de révision</title>
+<title>Studia — Ton espace de révision</title>
 <style>
 :root{--bg:#f5f6fa;--panel:#fff;--text:#172033;--muted:#667085;--line:#e5e7ef;--accent:#635bff;--accent2:#eeeefe;--shadow:0 10px 30px rgba(23,32,51,.07)}
 :root[data-theme="dark"]{--bg:#10121a;--panel:#191c27;--text:#f1f3fa;--muted:#a4abc0;--line:#303546;--accent:#938bff;--accent2:#292744;--shadow:0 10px 30px rgba(0,0,0,.22)}
@@ -93,27 +93,70 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
 /* V4 – identité visuelle et espace communauté */
 :root{--share-violet:#865dff}header{background:radial-gradient(ellipse at 78% 15%,rgba(134,93,255,.24),transparent 44%),var(--panel)}.v2tabs{gap:9px}.v2tabs button{border-radius:13px;transition:transform .16s,box-shadow .16s}.v2tabs button:hover{transform:translateY(-2px)}.share-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.share-kicker{font-size:11px;font-weight:800;letter-spacing:.15em;color:var(--accent)}.share-pill{padding:9px 13px;background:var(--accent2);border-radius:99px;font-size:12px}.share-toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:24px 0}.share-toolbar label,.share-form label{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:700}.share-toolbar select,.share-form select,.share-form input,.share-form textarea{background:var(--bg);color:var(--text);border:1px solid var(--line);padding:11px 12px;border-radius:11px;width:100%;font:inherit}.share-feed{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.share-item{background:var(--bg);border:1px solid var(--line);border-radius:17px;padding:18px;min-width:0}.share-item h3{margin:10px 0}.share-item p{overflow-wrap:anywhere}.share-badge{display:inline-block;padding:5px 9px;border-radius:99px;background:var(--accent2);font-size:12px;margin:3px 4px 3px 0}.share-create,.share-admin{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:22px;margin-top:24px}.share-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:15px 0}.share-wide{grid-column:1/-1}.share-admin{border-color:var(--accent)}.share-preview{white-space:pre-wrap;max-height:240px;overflow:auto;background:var(--bg);border-radius:10px;padding:12px}.share-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}@media(max-width:650px){.share-form{grid-template-columns:1fr}.share-wide{grid-column:auto}.share-create,.share-admin{padding:15px}}
-/* V5 · Aurora — thème clair/sombre véritable, surfaces cohérentes */
-:root{color-scheme:light;--bg:#f4f5fb;--panel:#fff;--text:#17213b;--muted:#69748d;--line:#e4e7f1;--accent:#7554ed;--accent2:#eee9ff;--shadow:0 16px 45px rgba(42,31,85,.08);--surface-soft:#f9f9fe;--surface-hover:#f1efff;--hero-text:#fff}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#0d0f1c;--panel:#171a2b;--text:#f2f2fc;--muted:#aab0cb;--line:#31354c;--accent:#a48bff;--accent2:#30294d;--shadow:0 16px 48px rgba(0,0,0,.24);--surface-soft:#1c2034;--surface-hover:#282440;--hero-text:#fff}
-html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);letter-spacing:-.006em}header{position:relative;overflow:hidden;background:linear-gradient(125deg,#111329 0%,#26204c 58%,#4b319a 100%)!important;color:#fff;padding:40px 20px 90px;isolation:isolate}header:before{content:"";position:absolute;width:480px;height:480px;right:-110px;top:-245px;border-radius:50%;background:radial-gradient(circle,rgba(184,155,255,.55),transparent 68%);filter:blur(7px);z-index:-1}header:after{content:"";position:absolute;width:430px;height:430px;left:30%;bottom:-380px;border-radius:50%;background:radial-gradient(circle,rgba(117,84,237,.45),transparent 65%);z-index:-1}header h1{font-size:clamp(38px,6vw,68px);line-height:1.04;letter-spacing:-.055em;font-weight:850;margin:36px 0 17px}header .hero p{font-size:clamp(15px,1.8vw,18px);max-width:650px;line-height:1.75;color:#e2dffc}.brand{display:flex;gap:9px;align-items:center}.brand:before{content:"✦";display:grid;place-items:center;width:33px;height:33px;border-radius:10px;background:rgba(255,255,255,.16);font-size:21px}.pill{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.22);font-weight:650}
-main{max-width:1320px;margin-top:-43px}.v2tabs{position:sticky;top:12px;z-index:25;display:flex;flex-wrap:wrap;gap:5px;padding:9px;background:var(--panel);border:1px solid var(--line);border-radius:22px;box-shadow:0 12px 40px rgba(30,23,75,.12)}.v2tabs button{flex:1 0 auto;min-height:43px;padding:10px 13px;border-radius:13px!important;font-size:13px;font-weight:650;transition:background .2s,transform .2s,color .2s}.v2tabs button:not(.on):hover{background:var(--surface-hover);transform:translateY(-1px)}.v2tabs button.on{background:var(--accent);color:#fff;box-shadow:0 5px 14px rgba(117,84,237,.22)}
-.v2panel{background:var(--panel);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:clamp(18px,3vw,34px)}.v2panel h2{letter-spacing:-.035em;font-size:clamp(23px,2.6vw,30px)}.v2box{background:var(--surface-soft);border:1px solid var(--line);border-radius:18px;padding:21px;transition:transform .2s,box-shadow .2s,border-color .2s}.v2box:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}.v2box strong{font-size:30px;letter-spacing:-.04em;color:var(--accent)}.v2muted{color:var(--muted)}
-.layout .sidebar,.layout .content,.card,.share-item,.share-create,.share-admin{background:var(--panel);border-color:var(--line);box-shadow:var(--shadow)}.card{border-radius:18px;transition:transform .2s,box-shadow .2s,border-color .2s}.card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}.share-item{background:var(--surface-soft);border-radius:18px}.share-create,.share-admin{background:var(--surface-soft)}.share-pill,.share-badge,.v2chip{background:var(--accent2);color:var(--accent)}.revision-intro{background:var(--accent2)}.revision-section{background:var(--panel)}.revision-line,.revision-visual .diagram,.share-preview{background:var(--surface-soft)}.v2question{background:var(--surface-soft)}.v2flip{background:var(--accent2)}.share-toolbar select,.share-form select,.share-form input,.share-form textarea,.v2input,.search,.field input,.field select,.field textarea{background:var(--surface-soft)!important;color:var(--text)!important;border-color:var(--line)!important}.share-toolbar select:focus,.share-form input:focus,.share-form textarea:focus{border-color:var(--accent)!important;outline:2px solid var(--accent2)}
-button{transition:transform .18s,filter .18s,background .18s}button:hover{filter:brightness(1.06)}button:active{transform:scale(.98)}.secondary{background:var(--surface-soft);color:var(--text);border:1px solid var(--line)}.secondary:hover{background:var(--surface-hover)}.tag,.count{background:var(--accent2);color:var(--accent)}
-:root[data-theme="light"] header #themeBtn,:root[data-theme="dark"] header #themeBtn{color:#fff!important;background:rgba(255,255,255,.13)!important;border-color:rgba(255,255,255,.35)!important}
-:root[data-theme="light"] .share-item,:root[data-theme="light"] .v2question,:root[data-theme="light"] .v2box{background:#f9f9ff}
-:root[data-theme="light"] .v2panel,:root[data-theme="light"] .layout .content,:root[data-theme="light"] .layout .sidebar{color:#17213b}
-@media(max-width:780px){header{padding:24px 16px 72px}header h1{margin:26px 0 12px}.topline{flex-wrap:wrap}.v2tabs{position:relative;top:auto;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;border-radius:16px;scrollbar-width:thin}.v2tabs button{flex:0 0 auto}.v2panel{border-radius:18px}main{padding:0 12px}.v2box{padding:16px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* ATELIER / nouvelle identité — design editorial, contrastes nets, grille douce */
+:root{color-scheme:light;--bg:#f5f4f0;--panel:#ffffff;--text:#20212a;--muted:#777783;--line:#e9e6e1;--accent:#7056d9;--accent2:#ede8ff;--shadow:0 10px 40px rgba(39,31,68,.055);--surface-soft:#faf9f6;--surface-hover:#f2eeff;--v2brand:#7056d9}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#111219;--panel:#1a1b25;--text:#f6f3f0;--muted:#a5a3b2;--line:#30303d;--accent:#b49aff;--accent2:#332c4b;--shadow:0 12px 45px rgba(0,0,0,.22);--surface-soft:#22232e;--surface-hover:#332b4a;--v2brand:#b49aff}
+html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,sans-serif;letter-spacing:-.018em}
+header{background:var(--bg)!important;color:var(--text)!important;padding:30px 22px 74px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+header:before{content:"";position:absolute;right:-140px;top:65px;width:490px;height:490px;border-radius:50%;background:radial-gradient(circle,var(--accent2),transparent 68%);pointer-events:none}
+header:after{content:"";position:absolute;right:13%;top:130px;width:125px;height:125px;border:1px solid var(--line);border-radius:32px;transform:rotate(-17deg);pointer-events:none}
+.wrap{max-width:1260px}.topline{position:relative;z-index:1;border-bottom:1px solid var(--line);padding-bottom:22px}
+.brand{font-size:12px;letter-spacing:.14em;font-weight:850;text-transform:uppercase;color:var(--text);opacity:1;display:flex;align-items:center;gap:12px}
+.brand:before{content:"✳";display:grid;place-items:center;width:40px;height:40px;border-radius:13px;background:var(--accent);color:#fff;font-size:25px;letter-spacing:0}
+.pill{background:var(--panel);border:1px solid var(--line);border-radius:99px;color:var(--muted);font-weight:650;padding:9px 14px}
+header .hero h1{font-size:clamp(49px,7.3vw,100px);line-height:.99;letter-spacing:-.085em;font-weight:850;margin:55px 0 26px;max-width:1000px;position:relative;z-index:1}
+header .hero h1:after{content:"✦";display:inline-block;font-size:.44em;vertical-align:top;color:var(--accent);margin:0 0 0 14px;transform:rotate(15deg)}
+header .hero p{color:var(--muted);font-size:clamp(16px,1.7vw,19px);line-height:1.8;max-width:660px;position:relative;z-index:1}
+header #themeBtn{background:var(--panel)!important;color:var(--text)!important;border:1px solid var(--line)!important;padding:10px 14px!important;border-radius:12px!important}
+main{max-width:1300px;margin:-31px auto 70px;padding:0 20px;position:relative;z-index:2}
+.v2tabs{position:sticky;top:10px;z-index:25;display:flex;gap:5px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:9px;box-shadow:0 12px 40px rgba(30,25,46,.1)}
+.v2tabs button{border:0;flex:1 1 auto;border-radius:12px!important;white-space:nowrap;min-height:43px;padding:10px 12px;background:transparent;color:var(--muted);font-size:13px;font-weight:750;transition:background .2s,color .2s,transform .2s}
+.v2tabs button:hover:not(.on){background:var(--surface-hover);color:var(--text)}
+.v2tabs button.on{background:var(--accent);color:#fff;box-shadow:0 5px 14px rgba(112,86,217,.18)}
+.v2panel{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3vw,38px);box-shadow:var(--shadow);margin-bottom:22px}
+.v2panel h2{font-size:clamp(25px,3vw,36px);letter-spacing:-.06em;font-weight:800;margin-top:0}
+.v2panel h3{letter-spacing:-.035em}
+.v2muted{color:var(--muted)}
+.v2grid{gap:16px;margin:25px 0}
+.v2box{background:var(--surface-soft);border:1px solid var(--line);border-radius:18px;padding:25px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.v2box:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--shadow)}
+.v2box strong{font-size:clamp(28px,3vw,38px);line-height:1.25;letter-spacing:-.07em;color:var(--accent)}
+.layout{gap:18px}.layout .sidebar,.layout .content{background:var(--panel);border-color:var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:21px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 16px 36px rgba(64,42,118,.1)}
+.cat{border-radius:10px}.cat.active,.cat:hover{background:var(--accent2);color:var(--accent)}
+.tag,.count,.v2chip,.share-badge,.share-pill{background:var(--accent2);color:var(--accent)}
+button{border-radius:12px;transition:transform .18s,filter .18s,background .18s}
+button:hover{filter:brightness(1.05)}button:active{transform:scale(.98)}
+button.secondary,.secondary{background:var(--surface-soft);color:var(--text);border:1px solid var(--line)}
+button.secondary:hover{background:var(--surface-hover)}
+.v2input,.search,.field input,.field select,.field textarea,.share-toolbar select,.share-form select,.share-form input,.share-form textarea{background:var(--surface-soft)!important;color:var(--text)!important;border:1px solid var(--line)!important;border-radius:12px}
+.v2question,.share-item,.share-create,.share-admin{background:var(--surface-soft);border:1px solid var(--line);border-radius:18px}
+.revision-intro,.v2flip{background:var(--accent2)}
+.revision-section{background:var(--panel);border:1px solid var(--line)}
+.revision-line,.revision-visual .diagram,.share-preview{background:var(--surface-soft)}
+.readerbody{line-height:1.85}.readerbody h3{letter-spacing:-.04em}
+.share-head{align-items:center}.share-kicker{color:var(--accent)}
+#v2home:before{content:"TON TABLEAU DE BORD";display:block;color:var(--accent);font-size:11px;letter-spacing:.18em;font-weight:850;margin-bottom:16px}
+#v2home h2{font-size:clamp(30px,4vw,45px)}
+#v2home>.v2muted{font-size:16px}
+footer{color:var(--muted)}
+:root[data-theme="dark"] .readerbody mark{background:#f1cf78;color:#30270c}
+:root[data-theme="light"] .readerbody mark{background:#fbe6a2;color:#30270c}
+@media(max-width:900px){header .hero h1{font-size:clamp(48px,8vw,78px)}.v2tabs{position:relative;top:auto;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin}.v2tabs button{flex:0 0 auto}header:after{display:none}}
+@media(max-width:600px){header{padding:20px 14px 67px}header .hero h1{font-size:clamp(46px,11vw,65px);margin:35px 0 20px}.topline{align-items:flex-start;flex-wrap:wrap;gap:13px}.brand{font-size:11px}.pill{display:none}main{padding:0 11px}.v2panel{border-radius:17px;padding:19px}.v2box{padding:17px}.share-form{grid-template-columns:1fr}.share-wide{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{header,.v2tabs{display:none!important}main{margin:0}}
+
 </style>
 </head>
 <body>
 <header>
   <div class="wrap hero">
-    <div class="topline"><div class="brand">✦ Bibliothèque scolaire</div><div style="display:flex;gap:8px;align-items:center"><button id="themeBtn" class="secondary" style="background:#ffffff18;color:white;border-color:#ffffff55;padding:8px 11px" aria-label="Activer le thème sombre">☾ Thème sombre</button><span class="pill">Ton espace de révision</span></div></div>
-    <h1>Mes fiches de<br>révision.</h1>
-    <p>Toutes tes fiches au même endroit, classées par matière. Retrouve-les vite, ajoute les prochaines et révise à ton rythme.</p>
+    <div class="topline"><div class="brand">STUDIA<span style="font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)"> / espace révision</span></div><div style="display:flex;gap:8px;align-items:center"><button id="themeBtn" class="secondary" style="background:#ffffff18;color:white;border-color:#ffffff55;padding:8px 11px" aria-label="Activer le thème sombre">☾ Thème sombre</button><span class="pill">Ton espace de révision</span></div></div>
+    <h1>Apprendre.<br>Comprendre.<br><span style="color:var(--accent)">Réussir.</span></h1>
+    <p>Ton espace pour apprendre à ton rythme. Des fiches claires, des quiz et des outils pensés pour avancer, un chapitre à la fois.</p>
   </div>
 </header>
 <main>
